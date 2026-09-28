@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tradesman Storefront - Heritage Marketplace</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .seller-banner {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border-radius: var(--cres-radius-xl);
+    }
+    .seller-avatar-overlap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      margin-top: -55px;
+      object-fit: cover;
+      background: #FFF;
+    }
+  </style>
+</head>
+<body style="background: var(--cres-body-bg);">
+
+  <!-- Reusable Header -->
+  <div id="cres-header-placeholder"></div>
+
+  <main class="container my-4 my-md-5">
+    
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb small text-muted">
+        <li class="breadcrumb-item"><a href="/index.html" class="text-muted text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="/sellers.html" class="text-muted text-decoration-none">Tradesmen</a></li>
+        <li class="breadcrumb-item active text-dark fw-bold" id="crumb-seller-name">Loading Studio...</li>
+      </ol>
+    </nav>
+
+    <!-- Storefront Header Card -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-5">
+      <!-- Banner -->
+      <div class="seller-banner" id="seller-banner-bg" style="background-image: url('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80');">
+        <div class="position-absolute top-0 end-0 p-3">
+          <span class="badge rounded-pill bg-dark bg-opacity-75 text-white px-3 py-2 fw-semibold">
+            <i class="bi bi-shield-check text-warning me-1"></i> Verified Tradesman Storefront
+          </span>
+        </div>
+      </div>
+
+      <!-- Profile Info Bar -->
+      <div class="p-4 p-md-5 pt-0">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div class="d-flex align-items-end gap-3">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80" id="seller-avatar" class="seller-avatar-overlap">
+            <div>
+              <div class="d-flex align-items-center gap-2">
+                <h2 class="fw-bold mb-0 text-dark" id="seller-store-name" style="font-family: var(--cres-font-heading);">Loading Studio...</h2>
+                <i class="bi bi-patch-check-fill text-primary fs-5" id="seller-badge-icon" title="Verified Master Tradesman"></i>
+              </div>
+              <p class="text-muted small mb-1" id="seller-tagline">Traditional Heritage Studio</p>
+              <div class="d-flex flex-wrap align-items-center gap-3 small text-muted">
+                <span><i class="bi bi-geo-alt-fill text-primary me-1"></i><span id="seller-location">India</span></span>
+                <span><i class="bi bi-award-fill text-warning me-1"></i><span id="seller-exp">15</span> Yrs Experience</span>
+                <span><i class="bi bi-box-seam me-1"></i><span id="seller-sales-count">120</span> Sales</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" id="btn-follow-seller" onclick="handleFollowToggle()">
+              <i class="bi bi-person-plus me-1" id="follow-icon"></i> <span id="follow-text">Follow</span> (<span id="follower-count">0</span>)
+            </button>
+            <a href="#" id="btn-message-seller" class="btn cres-btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+              <i class="bi bi-chat-text-fill me-1"></i> Message Seller
+            </a>
+          </div>
+        </div>
+
+        <!-- About Text -->
+        <div class="p-3 bg-light rounded-4 mb-4">
+          <h6 class="fw-bold mb-1 text-dark"><i class="bi bi-info-circle text-primary me-2"></i>About the Artisan / Studio</h6>
+          <p class="text-muted small mb-0 leading-relaxed" id="seller-bio">
+            Loading artist biography...
+          </p>
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="row g-3 text-center border-top pt-3">
+          <div class="col-4 col-md-2">
+            <h5 class="fw-bold text-dark mb-0" id="metric-rating">5.0 ★</h5>
+            <small class="text-muted">Rating</small>
+          </div>
+          <div class="col-4 col-md-2 border-start">
+            <h5 class="fw-bold text-dark mb-0" id="metric-reviews">24</h5>
+            <small class="text-muted">Reviews</small>
+          </div>
+          <div class="col-4 col-md-2 border-start">
+            <h5 class="fw-bold text-dark mb-0" id="metric-products">12</h5>
+            <small class="text-muted">Artworks</small>
+          </div>
+          <div class="col-6 col-md-3 border-start d-none d-md-block">
+            <h5 class="fw-bold text-success mb-0">100% Authentic</h5>
+            <small class="text-muted">Provenance Guarantee</small>
+          </div>
+          <div class="col-6 col-md-3 border-start d-none d-md-block">
+            <h5 class="fw-bold text-primary mb-0">Insured Crating</h5>
+            <small class="text-muted">Safe Direct Shipping</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Tabs -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h3 class="fw-bold mb-1 text-dark" style="font-family: var(--cres-font-heading);">Artworks &amp; Creations</h3>
+        <p class="text-muted small mb-0">Handmade items and authentic collectibles listed directly by this Tradesman.</p>
+      </div>
+      <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold" id="store-products-count">0 Listings</span>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row g-4 mb-5" id="seller-products-grid">
+      <div class="col-12 text-center py-5 text-muted">
+        <div class="spinner-border text-primary me-2"></div> Loading artist catalog...
+      </div>
+    </div>
+
+    <!-- Seller Reviews Section -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h4 class="fw-bold mb-1">Customer Reviews &amp; Testimonials</h4>
+          <p class="text-muted small mb-0">Feedback from verified collectors on packaging, authenticity, and communication.</p>
+        </div>
+        <button class="btn btn-outline-primary btn-sm rounded-pill px-3 py-2 fw-semibold" onclick="openReviewModal()">
+          <i class="bi bi-star-fill text-warning me-1"></i> Write a Review
+        </button>
+      </div>
+
+      <div class="d-flex flex-column gap-3" id="seller-reviews-list">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal: Write Review -->
+  <div class="modal fade" id="sellerReviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold">Review Tradesman</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form onsubmit="handleReviewSubmit(event)">
+            <div class="mb-3 text-center">
+              <label class="form-label small text-muted d-block">Overall Rating</label>
+              <select id="rev-rating" class="form-select form-select-lg rounded-pill text-center fw-bold text-warning">
+                <option value="5">★★★★★ 5 Stars (Supreme Quality)</option>
+                <option value="4">★★★★☆ 4 Stars (Very Good)</option>
+                <option value="3">★★★☆☆ 3 Stars (Average)</option>
+                <option value="2">★★☆☆☆ 2 Stars (Below Average)</option>
+                <option value="1">★☆☆☆☆ 1 Star (Poor)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Review Title</label>
+              <input type="text" id="rev-title" required class="form-control rounded-pill px-3" placeholder="e.g. Flawless gold foil and pristine wooden crate packaging">
+            </div>
+            <div class="mb-4">
+              <label class="form-label small fw-bold">Detailed Feedback</label>
+              <textarea id="rev-comment" rows="3" required class="form-control rounded-4 p-3" placeholder="Describe the craftsmanship, communication with the artist, and delivery experience..."></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn cres-btn-primary rounded-pill px-4 fw-bold">Submit Review</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Placeholder -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    let currentSeller = null;
+
+    async function loadSellerStorefront() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const identifier = urlParams.get('id') || urlParams.get('slug') || 'seller-ravi-arts';
+
+      try {
+        const res = await api.get(`/sellers/profile/${identifier}`);
+        if (!res.success || !res.data) {
+          showToast('Tradesman storefront not found.', 'error');
+          return;
+        }
+
+        currentSeller = res.data;
+        document.title = `${currentSeller.store_name} - Verified Tradesman`;
+        document.getElementById('crumb-seller-name').textContent = currentSeller.store_name;
+        document.getElementById('seller-store-name').textContent = currentSeller.store_name;
+        document.getElementById('seller-tagline').textContent = currentSeller.tagline || currentSeller.specialization;
+        document.getElementById('seller-location').textContent = currentSeller.location || 'India';
+        document.getElementById('seller-exp').textContent = currentSeller.experience_years || 1;
+        document.getElementById('seller-sales-count').textContent = currentSeller.sales_count || 0;
+        document.getElementById('seller-bio').textContent = currentSeller.bio || 'Master craftsman specializing in authentic heritage creations.';
+        
+        if (currentSeller.avatar) document.getElementById('seller-avatar').src = currentSeller.avatar;
+        if (currentSeller.banner) document.getElementById('seller-banner-bg').style.backgroundImage = `url('${currentSeller.banner}')`;
+
+        document.getElementById('metric-rating').textContent = `${currentSeller.rating || 5.0} ★`;
+        document.getElementById('metric-reviews').textContent = currentSeller.reviews_count || 0;
+        document.getElementById('metric-products').textContent = (currentSeller.products || []).length;
+        document.getElementById('store-products-count').textContent = `${(currentSeller.products || []).length} Creations`;
+
+        // Follow Button
+        updateFollowBtn(currentSeller.is_following, currentSeller.followers_count || 0);
+
+        // Message Button Link
+        document.getElementById('btn-message-seller').href = `/chat.html?seller_id=${currentSeller.id}`;
+
+        // Render Products
+        const prodGrid = document.getElementById('seller-products-grid');
+        if (!currentSeller.products || currentSeller.products.length === 0) {
+          prodGrid.innerHTML = '<div class="col-12 text-center py-5 text-muted">This studio has not listed any active products yet.</div>';
+        } else {
+          prodGrid.innerHTML = currentSeller.products.map(p => `
+            <div class="col-6 col-md-4 col-lg-3">
+              ${renderProductCard({ ...p, seller_name: currentSeller.store_name, seller_id: currentSeller.id, seller_verified: currentSeller.is_verified })}
+            </div>
+          `).join('');
+        }
+
+        // Render Reviews
+        const revList = document.getElementById('seller-reviews-list');
+        if (!currentSeller.reviews || currentSeller.reviews.length === 0) {
+          revList.innerHTML = '<div class="text-muted small text-center py-4">No reviews yet. Be the first to review this Tradesman!</div>';
+        } else {
+          revList.innerHTML = currentSeller.reviews.map(r => `
+            <div class="card bg-light border-0 rounded-4 p-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="fw-bold text-dark small">${r.user_name || 'Verified Buyer'}</span>
+                  ${r.is_verified_buyer ? `<span class="badge bg-success bg-opacity-10 text-success" style="font-size: 0.65rem;"><i class="bi bi-patch-check"></i> Verified Purchase</span>` : ''}
+                </div>
+                <div class="text-warning small">${'★'.repeat(r.rating || 5)}</div>
+              </div>
+              <h6 class="fw-bold mb-1 small text-dark">${r.title}</h6>
+              <p class="text-muted small mb-1">${r.comment}</p>
+              <small class="text-muted" style="font-size: 0.7rem;">${new Date(r.created_at).toLocaleDateString()}</small>
+            </div>
+          `).join('');
+        }
+
+      } catch (err) {
+        console.error('Storefront error:', err);
+        showToast('Failed to load seller storefront.', 'error');
+      }
+    }
+
+    function updateFollowBtn(isFollowing, count) {
+      const followIcon = document.getElementById('follow-icon');
+      const followText = document.getElementById('follow-text');
+      const followCountEl = document.getElementById('follower-count');
+      
+      followIcon.className = isFollowing ? 'bi bi-check-lg' : 'bi bi-person-plus';
+      followText.textContent = isFollowing ? 'Following' : 'Follow';
+      followCountEl.textContent = count;
+    }
+
+    async function handleFollowToggle() {
+      if (!api.getToken()) {
+        showToast('Please login to follow this Tradesman.', 'warning');
+        return;
+      }
+      if (!currentSeller) return;
+
+      try {
+        const res = await api.post('/sellers/follow', { seller_id: currentSeller.id });
+        if (res.success) {
+          showToast(res.message, 'success');
+          updateFollowBtn(res.is_following, res.followers_count);
+        }
+      } catch (err) {
+        showToast(err.message || 'Follow action failed.', 'error');
+      }
+    }
+
+    function openReviewModal() {
+      if (!api.getToken()) {
+        showToast('Please login to write a review.', 'warning');
+        return;
+      }
+      new bootstrap.Modal(document.getElementById('sellerReviewModal')).show();
+    }
+
+    async function handleReviewSubmit(e) {
+      e.preventDefault();
+      if (!currentSeller) return;
+
+      const payload = {
+        seller_id: currentSeller.id,
+        rating: document.getElementById('rev-rating').value,
+        title: document.getElementById('rev-title').value,
+        comment: document.getElementById('rev-comment').value
+      };
+
+      try {
+        const res = await api.post('/sellers/reviews', payload);
+        if (res.success) {
+          showToast('Thank you! Your review has been published.', 'success');
+          bootstrap.Modal.getInstance(document.getElementById('sellerReviewModal')).hide();
+          loadSellerStorefront();
+        }
+      } catch (err) {
+        showToast(err.message || 'Review submission failed.', 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSellerStorefront();
+    });
+  </script>
+</body>
+</html>

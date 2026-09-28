@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Tradesman - Heritage Marketplace</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header Placeholder -->
+  <div id="cres-header-placeholder"></div>
+
+  <main class="py-5" style="background: var(--cres-body-bg); min-height: 85vh;">
+    <div class="container">
+      
+      <!-- Hero Section -->
+      <div class="card border-0 rounded-4 p-4 p-md-5 mb-5 shadow-sm text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #5B42F3 100%);">
+        <div class="row align-items-center position-relative" style="z-index: 2;">
+          <div class="col-lg-8">
+            <span class="badge rounded-pill bg-white text-primary fw-bold px-3 py-2 mb-3">
+              <i class="bi bi-award-fill me-1"></i> Artisan &amp; Antiquarian Onboarding
+            </span>
+            <h1 class="display-5 fw-bold mb-3" style="font-family: var(--cres-font-heading);">
+              Become a Verified Tradesman
+            </h1>
+            <p class="lead opacity-90 mb-4" style="max-width: 650px;">
+              Showcase your original paintings, sacred sculptures, handloom textiles, and rare authenticated antiquities to thousands of passionate collectors and connoisseurs worldwide.
+            </p>
+            <div class="d-flex flex-wrap gap-4 text-white small">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill text-info fs-5"></i>
+                <span>Direct Buyer Inquiries &amp; Chat</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill text-info fs-5"></i>
+                <span>Dedicated Custom Storefront</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill text-info fs-5"></i>
+                <span>Guaranteed Direct Bank Payouts</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 d-none d-lg-block text-center">
+            <i class="bi bi-shop text-white opacity-25" style="font-size: 11rem;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Container -->
+      <div class="row g-4 justify-content-center">
+        
+        <!-- Left: Status or Application Form -->
+        <div class="col-lg-8">
+          
+          <!-- Already Applied Status Card (Hidden by default, shown if application exists) -->
+          <div id="application-status-card" class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-4 d-none">
+            <div class="text-center py-4">
+              <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px; background: var(--cres-primary-light);">
+                <i class="bi bi-hourglass-split text-primary fs-2" id="status-icon"></i>
+              </div>
+              <h3 class="fw-bold mb-2" id="status-title">Application Under Review</h3>
+              <p class="text-muted mb-4" id="status-desc" style="max-width: 500px; margin: 0 auto;">
+                Your Tradesman registration has been received and is currently being evaluated by our curation committee.
+              </p>
+              
+              <div class="card bg-light border-0 rounded-4 p-3 text-start mb-4">
+                <div class="row g-2 small">
+                  <div class="col-sm-6"><span class="text-muted">Shop Name:</span> <strong id="status-shop-name">-</strong></div>
+                  <div class="col-sm-6"><span class="text-muted">Specialization:</span> <strong id="status-spec">-</strong></div>
+                  <div class="col-sm-6"><span class="text-muted">Status:</span> <span class="badge bg-warning text-dark fw-bold" id="status-badge">Pending</span></div>
+                  <div class="col-sm-6"><span class="text-muted">Submitted Date:</span> <strong id="status-date">-</strong></div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center gap-3" id="status-action-btns">
+                <a href="/index.html" class="btn btn-outline-secondary rounded-pill px-4 py-2">Explore Marketplace</a>
+                <a href="/seller-dashboard.html" class="btn cres-btn-primary px-4 py-2 d-none" id="btn-go-dashboard">Open Seller Dashboard</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Application Form Card -->
+          <div id="application-form-card" class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-4">
+            <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Tradesman Application Form</h4>
+            <p class="text-muted small mb-4">Please fill in your studio details accurately. Curation approval takes approximately 24-48 hours.</p>
+
+            <form id="tradesmanForm" onsubmit="handleTradesmanSubmit(event)">
+              
+              <!-- Section 1: Store & Craft Information -->
+              <h6 class="text-uppercase text-primary fw-bold small mb-3 border-bottom pb-2">1. Studio &amp; Art Specialization</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-7">
+                  <label class="form-label small fw-bold">Shop / Studio / Brand Name *</label>
+                  <input type="text" id="app-shop-name" required class="form-control rounded-pill px-3" placeholder="e.g. Ravi Arts Studio / Heritage Sculptures">
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label small fw-bold">Craft / Art Category *</label>
+                  <select id="app-specialization" required class="form-select rounded-pill px-3">
+                    <option value="">Select Specialization...</option>
+                    <option value="Traditional Paintings & Fine Art">Traditional Paintings &amp; Fine Art (Tanjore, Madhubani, Oil)</option>
+                    <option value="Antiques, Vintage Artefacts & Relics">Antiques, Vintage Artefacts &amp; Relics</option>
+                    <option value="Handmade Sculptures & Metal Bronzes">Handmade Sculptures &amp; Metal Bronzes</option>
+                    <option value="Handloom Textiles & Sacred Silks">Handloom Textiles &amp; Sacred Silks</option>
+                    <option value="Handcrafted Woodworks & Altars">Handcrafted Woodworks &amp; Altars</option>
+                    <option value="Handmade Jewelry & Sacred Beads">Handmade Jewelry &amp; Sacred Beads</option>
+                    <option value="Natural Aromas, Dhoop & Temple Essentials">Natural Aromas, Dhoop &amp; Temple Essentials</option>
+                    <option value="Other Heritage Craft">Other Heritage Craft</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small fw-bold">Years of Experience *</label>
+                  <input type="number" id="app-experience" min="1" max="75" required class="form-control rounded-pill px-3" placeholder="e.g. 10">
+                </div>
+                <div class="col-md-8">
+                  <label class="form-label small fw-bold">Location / Studio City *</label>
+                  <input type="text" id="app-location" required class="form-control rounded-pill px-3" placeholder="e.g. Jaipur, Rajasthan, India">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Studio Biography &amp; Art Heritage *</label>
+                  <textarea id="app-bio" rows="3" required class="form-control rounded-4 p-3" placeholder="Describe your background, artistic lineage, materials used, techniques, and authenticity guarantees..."></textarea>
+                </div>
+              </div>
+
+              <!-- Section 2: Online Presence & Verification -->
+              <h6 class="text-uppercase text-primary fw-bold small mb-3 border-bottom pb-2">2. Portfolio &amp; Verification</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Portfolio / Gallery URL</label>
+                  <input type="url" id="app-portfolio" class="form-control rounded-pill px-3" placeholder="https://instagram.com/myart or website">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Contact Phone Number *</label>
+                  <input type="tel" id="app-phone" required class="form-control rounded-pill px-3" placeholder="+91 98765 43210">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Identity Document Type *</label>
+                  <select id="app-id-type" required class="form-select rounded-pill px-3">
+                    <option value="National ID / Aadhaar">National ID / Aadhaar</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Business GST / Artisan Card">Business GST / Artisan Card</option>
+                    <option value="Voter ID / Driving License">Voter ID / Driving License</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">ID / Document Number *</label>
+                  <input type="text" id="app-id-number" required class="form-control rounded-pill px-3" placeholder="Document identification number">
+                  <small class="text-muted" style="font-size: 0.75rem;">Private: Never exposed publicly.</small>
+                </div>
+              </div>
+
+              <!-- Section 3: Payout Information -->
+              <h6 class="text-uppercase text-primary fw-bold small mb-3 border-bottom pb-2">3. Direct Bank Payout Details</h6>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Bank Account Holder Name *</label>
+                  <input type="text" id="app-bank-holder" required class="form-control rounded-pill px-3" placeholder="Account Name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Bank Name *</label>
+                  <input type="text" id="app-bank-name" required class="form-control rounded-pill px-3" placeholder="e.g. State Bank of India, HDFC">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Account Number *</label>
+                  <input type="text" id="app-bank-acc" required class="form-control rounded-pill px-3" placeholder="Full Account Number">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">IFSC / Routing Code *</label>
+                  <input type="text" id="app-bank-ifsc" required class="form-control rounded-pill px-3" placeholder="e.g. SBIN0001234">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">UPI ID (Optional)</label>
+                  <input type="text" id="app-bank-upi" class="form-control rounded-pill px-3" placeholder="username@okhdfcbank">
+                </div>
+              </div>
+
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="termsCheck" required checked>
+                <label class="form-check-label small text-muted" for="termsCheck">
+                  I certify that all artwork, antiques, or handcrafted products listed by my studio will be authentic, accurately described, and comply with platform provenance standards.
+                </label>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn cres-btn-primary px-5 py-2 fw-bold shadow-sm" id="btn-submit-app">
+                  <i class="bi bi-send me-1"></i> Submit Tradesman Application
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Right: Requirements & Curation FAQ -->
+        <div class="col-lg-4">
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+            <h5 class="fw-bold mb-3"><i class="bi bi-shield-check text-success me-2"></i>Tradesman Standards</h5>
+            
+            <div class="d-flex flex-column gap-3 small text-muted">
+              <div class="d-flex gap-2">
+                <i class="bi bi-patch-check-fill text-primary mt-1"></i>
+                <div>
+                  <strong class="text-dark d-block">100% Authenticity Guarantee</strong>
+                  Every piece must have honest provenance, material specification, and year of origin declared.
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <i class="bi bi-camera-fill text-primary mt-1"></i>
+                <div>
+                  <strong class="text-dark d-block">High Resolution Imagery</strong>
+                  Upload crisp photos with proper lighting showing closeups of texture, signatures, and certificates.
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <i class="bi bi-box-seam-fill text-primary mt-1"></i>
+                <div>
+                  <strong class="text-dark d-block">Insured Packing &amp; Shipping</strong>
+                  Artworks and fragile antiques must be securely packaged in protective wooden crates or bubblewrap.
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <i class="bi bi-chat-dots-fill text-primary mt-1"></i>
+                <div>
+                  <strong class="text-dark d-block">Active Buyer Communication</strong>
+                  Respond promptly to collector questions regarding customization, framing, and history.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demo Credentials Banner -->
+          <div class="card border-0 rounded-4 p-4 bg-light shadow-sm">
+            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-info-circle text-primary me-2"></i>Quick Demo Test Logins</h6>
+            <p class="small text-muted mb-2">Want to immediately test the platform as an approved Tradesman or Admin?</p>
+            <div class="small bg-white p-2 rounded-3 border mb-2">
+              <div><strong>Master Artist:</strong> <code>seller1@harinama.com</code> / <code>seller123</code></div>
+              <div><strong>Antiquarian:</strong> <code>seller2@harinama.com</code> / <code>seller223</code></div>
+              <div><strong>Platform Admin:</strong> <code>admin@harinama.com</code> / <code>admin123</code></div>
+            </div>
+            <a href="/login.html" class="btn btn-sm btn-outline-primary rounded-pill w-100">Switch Account / Login</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/api.js"></script>
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    async function checkExistingStatus() {
+      const token = api.getToken();
+      if (!token) return;
+
+      try {
+        const res = await api.get('/sellers/my-status');
+        if (res.success) {
+          const { is_seller, status, profile, application } = res;
+
+          if (is_seller && status === 'approved') {
+            document.getElementById('application-form-card').classList.add('d-none');
+            const sc = document.getElementById('application-status-card');
+            sc.classList.remove('d-none');
+            document.getElementById('status-icon').className = 'bi bi-patch-check-fill text-success fs-2';
+            document.getElementById('status-title').textContent = '🎉 You are a Verified Tradesman!';
+            document.getElementById('status-desc').textContent = 'Your storefront is active and live on the marketplace. You can manage products, view incoming buyer messages, and track order earnings.';
+            document.getElementById('status-shop-name').textContent = profile.store_name;
+            document.getElementById('status-spec').textContent = profile.specialization;
+            document.getElementById('status-badge').className = 'badge bg-success text-white fw-bold';
+            document.getElementById('status-badge').textContent = 'Approved & Verified';
+            document.getElementById('status-date').textContent = new Date(profile.created_at).toLocaleDateString();
+            document.getElementById('btn-go-dashboard').classList.remove('d-none');
+          } else if (application) {
+            document.getElementById('application-form-card').classList.add('d-none');
+            const sc = document.getElementById('application-status-card');
+            sc.classList.remove('d-none');
+            document.getElementById('status-shop-name').textContent = application.shop_name;
+            document.getElementById('status-spec').textContent = application.specialization;
+            document.getElementById('status-date').textContent = new Date(application.created_at).toLocaleDateString();
+            
+            if (application.status === 'rejected') {
+              document.getElementById('status-icon').className = 'bi bi-x-circle-fill text-danger fs-2';
+              document.getElementById('status-title').textContent = 'Application Not Approved';
+              document.getElementById('status-desc').textContent = application.rejection_reason || 'Did not meet current curation criteria.';
+              document.getElementById('status-badge').className = 'badge bg-danger text-white fw-bold';
+              document.getElementById('status-badge').textContent = 'Rejected';
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch seller status:', err.message);
+      }
+    }
+
+    async function handleTradesmanSubmit(e) {
+      e.preventDefault();
+      const token = api.getToken();
+      if (!token) {
+        showToast('Please login or create an account first to apply as a Tradesman!', 'warning');
+        setTimeout(() => window.location.href = '/login.html?redirect=/become-tradesman.html', 1500);
+        return;
+      }
+
+      const submitBtn = document.getElementById('btn-submit-app');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+
+      const payload = {
+        shop_name: document.getElementById('app-shop-name').value,
+        specialization: document.getElementById('app-specialization').value,
+        experience_years: document.getElementById('app-experience').value,
+        location: document.getElementById('app-location').value,
+        bio: document.getElementById('app-bio').value,
+        portfolio_url: document.getElementById('app-portfolio').value,
+        phone: document.getElementById('app-phone').value,
+        id_document_type: document.getElementById('app-id-type').value,
+        id_document_number: document.getElementById('app-id-number').value,
+        bank_details: {
+          account_holder: document.getElementById('app-bank-holder').value,
+          bank_name: document.getElementById('app-bank-name').value,
+          account_number: document.getElementById('app-bank-acc').value,
+          ifsc_code: document.getElementById('app-bank-ifsc').value,
+          upi_id: document.getElementById('app-bank-upi').value
+        }
+      };
+
+      try {
+        const res = await api.post('/sellers/apply', payload);
+        if (res.success) {
+          showToast('Application submitted successfully! Our curation committee will review your portfolio.', 'success');
+          setTimeout(() => {
+            checkExistingStatus();
+          }, 800);
+        }
+      } catch (err) {
+        showToast(err.message || 'Submission failed. Please check your fields.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-send me-1"></i> Submit Tradesman Application';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkExistingStatus();
+    });
+  </script>
+</body>
+</html>

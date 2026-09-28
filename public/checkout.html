@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Heritage Marketplace</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Reusable Header Placeholder -->
+  <div id="cres-header-placeholder"></div>
+
+  <main class="container my-5">
+    
+    <div class="mb-4">
+      <h2 class="fw-bold mb-3" style="font-family: var(--cres-font-heading);">Collector Checkout</h2>
+
+      <!-- 3-Step Stepper -->
+      <div class="d-flex flex-wrap align-items-center gap-2 gap-sm-3 mb-4">
+        <div class="d-flex align-items-center gap-2 cursor-pointer" onclick="goToStep(1)">
+          <span class="rounded-circle d-inline-flex align-items-center justify-content-center fw-bold small" id="step-badge-1" style="width: 28px; height: 28px; background: var(--cres-primary); color: #fff;">1</span>
+          <span class="fw-bold small text-dark" id="step-label-1">Information</span>
+        </div>
+        <div class="border-top d-none d-sm-block flex-grow-1" style="max-width: 40px;"></div>
+        <div class="d-flex align-items-center gap-2 text-muted cursor-pointer" onclick="goToStep(2)">
+          <span class="rounded-circle bg-light border text-muted d-inline-flex align-items-center justify-content-center fw-bold small" id="step-badge-2" style="width: 28px; height: 28px;">2</span>
+          <span class="small" id="step-label-2">Address &amp; Insured Transit</span>
+        </div>
+        <div class="border-top d-none d-sm-block flex-grow-1" style="max-width: 40px;"></div>
+        <div class="d-flex align-items-center gap-2 text-muted cursor-pointer" onclick="goToStep(3)">
+          <span class="rounded-circle bg-light border text-muted d-inline-flex align-items-center justify-content-center fw-bold small" id="step-badge-3" style="width: 28px; height: 28px;">3</span>
+          <span class="small" id="step-label-3">Escrow Payment</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      <!-- Left: Multi-step Form Sections -->
+      <div class="col-lg-7">
+        <form id="checkoutMultiForm" onsubmit="handleCheckoutSubmit(event)">
+          
+          <!-- STEP 1: Contact Information Card -->
+          <div id="checkout-step-1" class="checkout-step-panel">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+              <h5 class="fw-bold mb-4"><i class="bi bi-person-lines-fill text-primary me-2"></i>Collector Contact Information</h5>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Full Name</label>
+                  <input type="text" id="chk-fullname" required class="form-control rounded-pill px-3" placeholder="Arjun Sharma" value="Arjun Sharma">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Email Address (for COA &amp; invoices)</label>
+                  <input type="email" id="chk-email" required class="form-control rounded-pill px-3" placeholder="arjun.sharma@example.com" value="arjun.sharma@example.com">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Mobile Number (for Courier Tracking)</label>
+                  <input type="tel" id="chk-phone" required class="form-control rounded-pill px-3" placeholder="+91 98765 43210" value="+91 98765 43210">
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn cres-btn-primary w-100 py-3 fw-bold" onclick="goToStep(2)">
+              Continue to Address &amp; Delivery <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+
+          <!-- STEP 2: Shipping Address & Methods -->
+          <div id="checkout-step-2" class="checkout-step-panel d-none">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+              <h5 class="fw-bold mb-4"><i class="bi bi-geo-alt-fill text-primary me-2"></i>Delivery Address</h5>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Street Address</label>
+                  <input type="text" id="chk-addr1" required class="form-control rounded-pill px-3" placeholder="14 Heritage Avenue, Civil Lines" value="14 Heritage Avenue">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold">Apartment / Suite / Landmark (Optional)</label>
+                  <input type="text" id="chk-addr2" class="form-control rounded-pill px-3" placeholder="Flat 4B, Near Central Garden" value="Flat 4B">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">City</label>
+                  <input type="text" id="chk-city" required class="form-control rounded-pill px-3" placeholder="Bengaluru" value="Bengaluru">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">State</label>
+                  <input type="text" id="chk-state" required class="form-control rounded-pill px-3" placeholder="Karnataka" value="Karnataka">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Postal PIN Code</label>
+                  <input type="text" id="chk-zip" required class="form-control rounded-pill px-3" placeholder="560001" value="560001">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Country</label>
+                  <select class="form-select rounded-pill px-3" id="chk-country">
+                    <option value="IN" selected>India</option>
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="SG">Singapore</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Speed Selection -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+              <h6 class="fw-bold mb-3"><i class="bi bi-box-seam me-2 text-primary"></i>Art Packaging &amp; Courier Service</h6>
+              <div class="d-flex flex-column gap-2">
+                <label class="border rounded-4 p-3 d-flex align-items-center justify-content-between cursor-pointer">
+                  <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input mt-0" type="radio" name="shippingMethod" value="0" checked onchange="updateShippingCost(0)">
+                    <div>
+                      <div class="fw-bold small">Standard Insured Art Courier</div>
+                      <div class="text-muted small">Multi-layer bubble wrap &amp; shockproof foam (3–5 days)</div>
+                    </div>
+                  </div>
+                  <strong class="text-success">Free</strong>
+                </label>
+
+                <label class="border rounded-4 p-3 d-flex align-items-center justify-content-between cursor-pointer">
+                  <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input mt-0" type="radio" name="shippingMethod" value="850" onchange="updateShippingCost(850)">
+                    <div>
+                      <div class="fw-bold small">Express Wooden Crate Express</div>
+                      <div class="text-muted small">Reinforced wooden crating + priority air dispatch (1–2 days)</div>
+                    </div>
+                  </div>
+                  <strong class="text-dark">₹850</strong>
+                </label>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-3 fw-semibold" onclick="goToStep(1)">
+                <i class="bi bi-arrow-left me-1"></i> Back
+              </button>
+              <button type="button" class="btn cres-btn-primary flex-grow-1 py-3 fw-bold" onclick="goToStep(3)">
+                Continue to Payment <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Payment Section -->
+          <div id="checkout-step-3" class="checkout-step-panel d-none">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+              <h5 class="fw-bold mb-3"><i class="bi bi-credit-card-2-front text-primary me-2"></i>Select Payment Method</h5>
+              
+              <div class="d-flex flex-column gap-3 mb-4">
+                <label class="border rounded-4 p-3 d-flex align-items-center justify-content-between cursor-pointer">
+                  <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input mt-0" type="radio" name="paymentMethod" value="upi" checked onchange="togglePaymentPane('upi')">
+                    <div>
+                      <div class="fw-bold small"><i class="bi bi-qr-code-scan text-primary me-1"></i> UPI / Instant NetBanking</div>
+                      <div class="text-muted small">GPay, PhonePe, Paytm, BHIM or NetBanking</div>
+                    </div>
+                  </div>
+                  <span class="badge bg-success-subtle text-success">Recommended</span>
+                </label>
+
+                <label class="border rounded-4 p-3 d-flex align-items-center justify-content-between cursor-pointer">
+                  <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input mt-0" type="radio" name="paymentMethod" value="card" onchange="togglePaymentPane('card')">
+                    <div>
+                      <div class="fw-bold small"><i class="bi bi-credit-card me-1"></i> Credit / Debit Card</div>
+                      <div class="text-muted small">Visa, Mastercard, RuPay, Amex</div>
+                    </div>
+                  </div>
+                  <div class="text-muted fs-5"><i class="bi bi-credit-card"></i></div>
+                </label>
+
+                <label class="border rounded-4 p-3 d-flex align-items-center justify-content-between cursor-pointer">
+                  <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input mt-0" type="radio" name="paymentMethod" value="cod" onchange="togglePaymentPane('cod')">
+                    <div>
+                      <div class="fw-bold small"><i class="bi bi-cash me-1"></i> Cash on Delivery (COD)</div>
+                      <div class="text-muted small">Pay securely when verified art arrives</div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Card Input Details (Conditional) -->
+              <div id="card-details-panel" class="p-3 bg-light rounded-4 mb-3 d-none">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label small fw-bold">Card Number</label>
+                    <input type="text" class="form-control rounded-pill px-3" placeholder="4111 2222 3333 4444">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small fw-bold">Expiry Date</label>
+                    <input type="text" class="form-control rounded-pill px-3" placeholder="MM/YY">
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small fw-bold">CVV</label>
+                    <input type="password" class="form-control rounded-pill px-3" placeholder="123" maxlength="4">
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-info rounded-4 small mb-0 border-0">
+                <i class="bi bi-shield-check me-1"></i> Marketplace Escrow: Payments are securely held in escrow and only released to the tradesman after successful delivery confirmation.
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-3 fw-semibold" onclick="goToStep(2)">
+                <i class="bi bi-arrow-left me-1"></i> Back
+              </button>
+              <button type="submit" id="placeOrderBtn" class="btn cres-btn-primary flex-grow-1 py-3 fw-bold shadow-sm">
+                Authorize &amp; Place Order (<span id="btn-total-val">₹0</span>)
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Right: Order Summary Sidebar -->
+      <div class="col-lg-5">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white position-sticky" style="top: 95px;">
+          <h5 class="fw-bold mb-3 text-dark pb-2 border-bottom">Creations in Order</h5>
+
+          <!-- Items list -->
+          <div class="d-flex flex-column gap-3 mb-4" id="checkout-items-summary-list">
+            <!-- Injected dynamically -->
+          </div>
+
+          <hr class="my-3 opacity-25">
+
+          <!-- Price Calculations -->
+          <div class="d-flex justify-content-between mb-2 small text-muted">
+            <span>Creations Subtotal</span>
+            <span class="fw-bold text-dark" id="chk-subtotal">₹0</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-2 small text-muted">
+            <span>Special Collector Discount</span>
+            <span class="fw-bold text-danger" id="chk-discount">-₹0</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3 small text-muted">
+            <span>Insured Art Transit</span>
+            <span class="fw-bold text-success" id="chk-shipping-display">Free</span>
+          </div>
+
+          <hr class="my-3 opacity-25">
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <span class="fw-bold fs-5 text-dark">Order Total</span>
+              <div class="text-muted" style="font-size: 0.72rem;">Including GST &amp; Transit Insurance</div>
+            </div>
+            <span class="fw-bold fs-4" style="color: var(--cres-primary);" id="chk-total">₹0</span>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-3 border-top d-flex flex-column gap-2 small text-muted">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-success"></i> <strong>Escrow Protected</strong> (Verified release)
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-patch-check-fill text-primary"></i> <strong>Authenticity Guarantee</strong> (Physical COA)
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-truck text-primary"></i> <strong>Insured Transit</strong> (100% replacement cover)
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Reusable Footer Placeholder -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    let shippingCost = 0;
+    let currentCheckoutStep = 1;
+    let activeDiscount = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHeader('cart');
+      renderFooter();
+      renderCheckoutSummary();
+    });
+
+    function renderCheckoutSummary() {
+      let cart = JSON.parse(localStorage.getItem('cres_cart') || '[]');
+      if (cart.length === 0) {
+        cart = [
+          { id: 'prod-001', name: 'Thanjavur Gold Foil Saraswati Devotional Painting', price: 18500, seller_name: 'Ravi Arts Studio', color: 'Teak Frame', qty: 1, image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80' }
+        ];
+      }
+
+      const listContainer = document.getElementById('checkout-items-summary-list');
+      let subtotal = 0;
+
+      listContainer.innerHTML = cart.map(item => {
+        const itemTotal = (Number(item.price) || 0) * (Number(item.qty) || 1);
+        subtotal += itemTotal;
+        const sellerName = item.seller_name || 'Ravi Arts Studio';
+        return `
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${item.image}" class="rounded-3 border p-1" style="width: 52px; height: 52px; object-fit: contain; background: #FAF9FE;">
+              <div>
+                <h6 class="fw-bold small mb-0">${item.name}</h6>
+                <div class="text-muted" style="font-size: 0.75rem;">
+                  <span class="text-primary fw-semibold">${sellerName}</span> &bull; Qty: ${item.qty}
+                </div>
+              </div>
+            </div>
+            <div class="fw-bold small text-dark">${formatPrice(itemTotal)}</div>
+          </div>
+        `;
+      }).join('');
+
+      activeDiscount = Math.round(subtotal * 0.10); // 10% standard welcome discount
+      const total = Math.max(0, subtotal - activeDiscount + shippingCost);
+
+      document.getElementById('chk-subtotal').textContent = formatPrice(subtotal);
+      document.getElementById('chk-discount').textContent = `-${formatPrice(activeDiscount)}`;
+      document.getElementById('chk-shipping-display').textContent = shippingCost > 0 ? formatPrice(shippingCost) : 'Free';
+      document.getElementById('chk-total').textContent = formatPrice(total);
+      document.getElementById('btn-total-val').textContent = formatPrice(total);
+    }
+
+    function updateShippingCost(val) {
+      shippingCost = parseInt(val, 10) || 0;
+      renderCheckoutSummary();
+    }
+
+    function togglePaymentPane(type) {
+      const cardPanel = document.getElementById('card-details-panel');
+      if (type === 'card') {
+        cardPanel.classList.remove('d-none');
+      } else {
+        cardPanel.classList.add('d-none');
+      }
+    }
+
+    function goToStep(step) {
+      currentCheckoutStep = step;
+      document.querySelectorAll('.checkout-step-panel').forEach(p => p.classList.add('d-none'));
+      document.getElementById(`checkout-step-${step}`).classList.remove('d-none');
+
+      // Update badges
+      for (let i = 1; i <= 3; i++) {
+        const badge = document.getElementById(`step-badge-${i}`);
+        const label = document.getElementById(`step-label-${i}`);
+        if (i === step) {
+          badge.style.background = 'var(--cres-primary)';
+          badge.style.color = '#fff';
+          badge.className = 'rounded-circle d-inline-flex align-items-center justify-content-center fw-bold small';
+          label.className = 'fw-bold small text-dark';
+        } else if (i < step) {
+          badge.style.background = '#10B981';
+          badge.style.color = '#fff';
+          badge.innerHTML = '<i class="bi bi-check"></i>';
+          badge.className = 'rounded-circle d-inline-flex align-items-center justify-content-center fw-bold small';
+          label.className = 'small text-muted';
+        } else {
+          badge.style.background = '#f1f5f9';
+          badge.style.color = '#64748b';
+          badge.innerHTML = `${i}`;
+          badge.className = 'rounded-circle bg-light border text-muted d-inline-flex align-items-center justify-content-center fw-bold small';
+          label.className = 'small text-muted';
+        }
+      }
+      window.scrollTo({ top: 80, behavior: 'smooth' });
+    }
+
+    window.handleCheckoutSubmit = async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('placeOrderBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Securing escrow & placing order...';
+
+      const customerName = document.getElementById('chk-fullname').value || 'Collector';
+      const customerEmail = document.getElementById('chk-email').value || 'collector@example.com';
+      const customerPhone = document.getElementById('chk-phone').value || '';
+      const address = {
+        street: document.getElementById('chk-addr1').value + ' ' + (document.getElementById('chk-addr2').value || ''),
+        city: document.getElementById('chk-city').value,
+        state: document.getElementById('chk-state').value,
+        postal_code: document.getElementById('chk-zip').value,
+        country: document.getElementById('chk-country').value
+      };
+
+      const cart = JSON.parse(localStorage.getItem('cres_cart') || '[]');
+      const orderNum = 'HM-' + Math.floor(100000 + Math.random() * 900000);
+
+      // Attempt to place order via backend API
+      const token = localStorage.getItem('hn_token');
+      try {
+        const orderPayload = {
+          items: cart.map(i => ({
+            product_id: i.id,
+            name: i.name,
+            price: i.price,
+            quantity: i.qty || 1,
+            seller_id: i.seller_id || 'seller-ravi-arts'
+          })),
+          shipping_address: address,
+          payment_method: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'upi',
+          customer_email: customerEmail,
+          customer_name: customerName,
+          shipping_cost: shippingCost,
+          discount_amount: activeDiscount
+        };
+
+        const res = await fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify(orderPayload)
+        });
+
+        if (res.ok) {
+          const json = await res.json();
+          console.log('Order created on backend:', json);
+        }
+      } catch (err) {
+        console.warn('Backend order placement offline fallback:', err);
+      }
+
+      // Local fallback sync
+      const firstItem = cart[0] || { name: 'Thanjavur Gold Foil Saraswati Devotional Painting', image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80', qty: 1, price: 18500 };
+      const subtotal = cart.reduce((acc, i) => acc + (i.price * (i.qty || 1)), 0) || 18500;
+      const finalTotal = Math.max(0, subtotal - activeDiscount + shippingCost);
+
+      const newOrder = {
+        id: 'ord-' + Date.now(),
+        order_number: '#' + orderNum,
+        customer_name: customerName,
+        customer_email: customerEmail,
+        product_name: firstItem.name,
+        product_image: firstItem.image,
+        seller_name: firstItem.seller_name || 'Ravi Arts Studio',
+        quantity: cart.reduce((acc, i) => acc + (i.qty || 1), 0) || 1,
+        total: finalTotal,
+        status: 'processing',
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+
+      if (!window.CRESCENDO_DATA) window.CRESCENDO_DATA = {};
+      if (!window.CRESCENDO_DATA.orders) window.CRESCENDO_DATA.orders = [];
+      window.CRESCENDO_DATA.orders.unshift(newOrder);
+      localStorage.setItem('cres_orders', JSON.stringify(window.CRESCENDO_DATA.orders));
+
+      // Clear Cart
+      localStorage.removeItem('cres_cart');
+      if (typeof window.cresUpdateCounters === 'function') window.cresUpdateCounters();
+
+      setTimeout(() => {
+        showToast('🎉 Order confirmed! Order ID: #' + orderNum, 'success');
+        setTimeout(() => {
+          window.location.href = '/orders.html';
+        }, 1200);
+      }, 800);
+    };
+  </script>
+</body>
+</html>

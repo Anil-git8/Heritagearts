@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art &amp; Antiques Catalog - Heritage Marketplace</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Reusable Header Placeholder -->
+  <div id="cres-header-placeholder"></div>
+
+  <main class="container my-4">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="/index.html" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item active text-dark fw-semibold">Art &amp; Antiques</li>
+      </ol>
+    </nav>
+
+    <!-- Header Banner -->
+    <div class="p-4 p-md-5 mb-4 rounded-4 text-white shadow-sm" style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <span class="badge px-3 py-1 mb-2 rounded-pill fw-bold" style="background: rgba(255,255,255,0.15); color: #FFF; border: 1px solid rgba(255,255,255,0.2);">
+            <i class="bi bi-patch-check-fill me-1 text-warning"></i> Verified Tradesmen Direct Marketplace
+          </span>
+          <h1 class="display-6 fw-extrabold mb-2" style="font-family: var(--cres-font-heading);">Masterpieces &amp; Certified Antiquities</h1>
+          <p class="mb-0 text-white-50" style="max-width: 600px;">
+            Explore handcrafted paintings, bronze idols, traditional woodcrafts, and authentic antique relics direct from recognized master artists and licensed collectors.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="/become-tradesman.html" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-primary shadow-sm">
+            <i class="bi bi-award me-1"></i> Sell Your Creations
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left Filter Sidebar with Mobile Accordion Collapse -->
+      <div class="col-lg-3">
+        <!-- Mobile Filter Toggle Button -->
+        <button class="btn btn-outline-primary w-100 rounded-pill py-2 mb-3 d-lg-none fw-semibold d-flex align-items-center justify-content-between px-4 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#mobileFilterCollapse" aria-expanded="false" aria-controls="mobileFilterCollapse">
+          <span><i class="bi bi-funnel me-2"></i>Filter Creations</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+
+        <div class="collapse d-lg-block" id="mobileFilterCollapse">
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+            
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold small text-uppercase text-dark mb-0"><i class="bi bi-sliders me-1 text-primary"></i> Filter By</h6>
+              <button class="btn btn-link text-danger p-0 small text-decoration-none fw-semibold" onclick="resetAllFilters()">Reset</button>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-3">Craft Category</h6>
+              <div class="d-flex flex-column gap-2" id="prod-filter-categories">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+
+            <hr class="my-3 opacity-25">
+
+            <!-- Price Range Filter -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-2">Max Price</h6>
+              <div class="d-flex justify-content-between small text-muted mb-2">
+                <span>₹1,000</span>
+                <span id="price-slider-val" class="fw-bold text-primary">₹60,000</span>
+              </div>
+              <input type="range" class="form-range" id="price-range-slider" min="1000" max="60000" step="1000" value="60000" oninput="applyCatalogFilters()">
+            </div>
+
+            <hr class="my-3 opacity-25">
+
+            <!-- Provenance & Authenticity -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-3">Provenance &amp; Quality</h6>
+              <div class="d-flex flex-column gap-2">
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input" type="checkbox" id="filter-coa" onchange="applyCatalogFilters()">
+                  <span><i class="bi bi-patch-check-fill text-success me-1"></i> Verified COA Included</span>
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input" type="checkbox" id="filter-signed" onchange="applyCatalogFilters()">
+                  <span><i class="bi bi-pen-fill text-primary me-1"></i> Artisan Signed / Stamped</span>
+                </label>
+              </div>
+            </div>
+
+            <hr class="my-3 opacity-25">
+
+            <!-- Region of Origin -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-3">Origin Region</h6>
+              <div class="d-flex flex-column gap-2">
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input region-filter" type="checkbox" value="Tamil Nadu" onchange="applyCatalogFilters()"> Tamil Nadu
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input region-filter" type="checkbox" value="Rajasthan" onchange="applyCatalogFilters()"> Rajasthan
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input region-filter" type="checkbox" value="Odisha" onchange="applyCatalogFilters()"> Odisha / Bengal
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input region-filter" type="checkbox" value="Kashmir" onchange="applyCatalogFilters()"> Kashmir &amp; North
+                </label>
+              </div>
+            </div>
+
+            <hr class="my-3 opacity-25">
+
+            <!-- Customer Rating Filter -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-3">Collector Rating</h6>
+              <div class="d-flex flex-column gap-2">
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input" type="radio" name="catRating" value="4.8" onchange="applyCatalogFilters()">
+                  <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                  <span class="text-muted ms-1">4.8+ Stars</span>
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input" type="radio" name="catRating" value="4.0" onchange="applyCatalogFilters()">
+                  <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+                  <span class="text-muted ms-1">4.0+ Stars</span>
+                </label>
+                <label class="form-check d-flex align-items-center gap-2 cursor-pointer small">
+                  <input class="form-check-input" type="radio" name="catRating" value="all" checked onchange="applyCatalogFilters()">
+                  <span class="text-muted">All Ratings</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Products Grid -->
+      <div class="col-lg-9">
+        
+        <!-- Top Toolbar -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-4">
+          <div class="small text-muted" id="catalog-count-text">Loading creations...</div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="small text-muted text-nowrap">Sort by:</span>
+            <select class="form-select form-select-sm rounded-pill border-0 shadow-sm px-3 flex-grow-1" id="catalog-sort" style="min-width: 170px;" onchange="applyCatalogFilters()">
+              <option value="popularity">Curated &amp; Popular</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Collector Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="row g-4" id="catalog-products-grid">
+          <!-- Injected dynamically -->
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="d-flex justify-content-center mt-5" id="catalog-pagination-container">
+          <!-- Injected dynamically -->
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Reusable Footer Placeholder -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    let selectedCategory = '';
+    let currentPage = 1;
+    const PAGE_SIZE = 6;
+    let catalogProducts = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderHeader('products');
+      renderFooter();
+
+      // Check URL query parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      selectedCategory = urlParams.get('category') || '';
+
+      // Load products from API with fallback
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          const json = await res.json();
+          catalogProducts = json.data || json;
+        }
+      } catch (err) {
+        console.warn('API products fetch fallback:', err);
+      }
+
+      if (!catalogProducts || catalogProducts.length === 0) {
+        catalogProducts = window.CRESCENDO_DATA ? window.CRESCENDO_DATA.products : [];
+      }
+
+      renderCategoryFilters();
+      applyCatalogFilters();
+    });
+
+    const renderCategoryFilters = () => {
+      const container = document.getElementById('prod-filter-categories');
+      const cats = (window.CRESCENDO_DATA && window.CRESCENDO_DATA.categories) ? window.CRESCENDO_DATA.categories : [
+        { name: 'Artworks & Paintings', slug: 'artworks', count: 12 },
+        { name: 'Antique Sculptures', slug: 'antique-sculptures', count: 8 },
+        { name: 'Brass & Metalcrafts', slug: 'brass-metalcrafts', count: 14 },
+        { name: 'Traditional Textiles', slug: 'traditional-textiles', count: 9 },
+        { name: 'Woodcrafts', slug: 'woodcrafts', count: 7 }
+      ];
+
+      container.innerHTML = `
+        <label class="form-check d-flex justify-content-between align-items-center cursor-pointer small">
+          <span class="d-flex align-items-center gap-2">
+            <input class="form-check-input" type="radio" name="prodCat" value="" ${!selectedCategory ? 'checked' : ''} onchange="onSelectCategory('')">
+            All Creations
+          </span>
+        </label>
+      ` + cats.map(c => `
+        <label class="form-check d-flex justify-content-between align-items-center cursor-pointer small">
+          <span class="d-flex align-items-center gap-2">
+            <input class="form-check-input" type="radio" name="prodCat" value="${c.slug || c.name.toLowerCase()}" ${selectedCategory === (c.slug || c.name.toLowerCase()) ? 'checked' : ''} onchange="onSelectCategory('${c.slug || c.name.toLowerCase()}')">
+            ${c.name}
+          </span>
+          <span class="text-muted small">${c.count || ''}</span>
+        </label>
+      `).join('');
+    };
+
+    window.onSelectCategory = (slug) => {
+      selectedCategory = slug;
+      currentPage = 1;
+      applyCatalogFilters();
+    };
+
+    window.resetAllFilters = () => {
+      selectedCategory = '';
+      document.getElementById('price-range-slider').value = 60000;
+      document.getElementById('filter-coa').checked = false;
+      document.getElementById('filter-signed').checked = false;
+      document.querySelectorAll('.region-filter').forEach(cb => cb.checked = false);
+      const radioAll = document.querySelector('input[name="catRating"][value="all"]');
+      if (radioAll) radioAll.checked = true;
+      const catAll = document.querySelector('input[name="prodCat"][value=""]');
+      if (catAll) catAll.checked = true;
+      currentPage = 1;
+      applyCatalogFilters();
+    };
+
+    window.goToPage = (page) => {
+      currentPage = page;
+      applyCatalogFilters();
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+    };
+
+    window.applyCatalogFilters = () => {
+      const maxPrice = parseFloat(document.getElementById('price-range-slider').value) || 60000;
+      document.getElementById('price-slider-val').textContent = formatPrice(maxPrice);
+
+      const coaOnly = document.getElementById('filter-coa')?.checked;
+      const signedOnly = document.getElementById('filter-signed')?.checked;
+      const selectedRegions = Array.from(document.querySelectorAll('.region-filter:checked')).map(cb => cb.value);
+      const rating = document.querySelector('input[name="catRating"]:checked')?.value;
+      const sort = document.getElementById('catalog-sort').value;
+
+      let filtered = [...catalogProducts];
+
+      // Category filter
+      if (selectedCategory) {
+        filtered = filtered.filter(p => {
+          const pCatSlug = p.category_slug || (p.category ? p.category.toLowerCase().replace(/\s+/g, '-') : '');
+          return pCatSlug.includes(selectedCategory) || (p.category && p.category.toLowerCase().includes(selectedCategory));
+        });
+      }
+
+      // Price filter
+      filtered = filtered.filter(p => (p.price || 0) <= maxPrice);
+
+      // COA filter
+      if (coaOnly) {
+        filtered = filtered.filter(p => p.certificate_of_authenticity !== false);
+      }
+
+      // Signed filter
+      if (signedOnly) {
+        filtered = filtered.filter(p => p.is_signed === true);
+      }
+
+      // Regions filter
+      if (selectedRegions.length > 0) {
+        filtered = filtered.filter(p => {
+          const orig = p.origin_region || '';
+          return selectedRegions.some(reg => orig.toLowerCase().includes(reg.toLowerCase()));
+        });
+      }
+
+      // Rating filter
+      if (rating && rating !== 'all') {
+        filtered = filtered.filter(p => (p.rating || 5.0) >= parseFloat(rating));
+      }
+
+      // Sorting
+      if (sort === 'price-asc') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === 'price-desc') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sort === 'rating') {
+        filtered.sort((a, b) => (b.rating || 5) - (a.rating || 5));
+      }
+
+      const totalItems = filtered.length;
+      const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = Math.min(startIndex + PAGE_SIZE, totalItems);
+      const paginatedItems = filtered.slice(startIndex, endIndex);
+
+      const grid = document.getElementById('catalog-products-grid');
+      const countText = document.getElementById('catalog-count-text');
+      const pagContainer = document.getElementById('catalog-pagination-container');
+
+      if (totalItems === 0) {
+        countText.textContent = `Showing 0 creations`;
+        grid.innerHTML = '<div class="col-12 text-center py-5 text-muted"><i class="bi bi-palette display-3 text-muted"></i><h5 class="fw-bold mt-3">No creations match your filter criteria</h5><p class="small">Try expanding your price range or clearing regional filters.</p></div>';
+        pagContainer.innerHTML = '';
+        return;
+      }
+
+      countText.textContent = `Showing ${startIndex + 1}-${endIndex} of ${totalItems} creations`;
+
+      grid.innerHTML = paginatedItems.map(p => `
+        <div class="col-6 col-md-4">
+          ${renderProductCard(p)}
+        </div>
+      `).join('');
+
+      // Render Pagination Buttons
+      let pagHtml = '<ul class="pagination shadow-sm rounded-pill overflow-hidden mb-0">';
+      pagHtml += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><button class="page-link" onclick="goToPage(${currentPage - 1})" aria-label="Previous">&laquo;</button></li>`;
+      for (let i = 1; i <= totalPages; i++) {
+        pagHtml += `<li class="page-item ${i === currentPage ? 'active' : ''}"><button class="page-link" onclick="goToPage(${i})">${i}</button></li>`;
+      }
+      pagHtml += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><button class="page-link" onclick="goToPage(${currentPage + 1})" aria-label="Next">&raquo;</button></li>`;
+      pagHtml += '</ul>';
+
+      pagContainer.innerHTML = pagHtml;
+    };
+  </script>
+</body>
+</html>

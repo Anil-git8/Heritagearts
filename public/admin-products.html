@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Products &amp; Curation - Heritage Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .admin-layout {
+      min-height: 100vh;
+      background: var(--cres-body-bg);
+    }
+    .admin-sidebar {
+      width: 260px;
+      background: #FFFFFF;
+      border-right: 1px solid var(--cres-border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+    }
+    .admin-main {
+      flex: 1;
+      padding: 30px 40px;
+    }
+    @media (max-width: 991.98px) {
+      .admin-sidebar {
+        position: fixed;
+        left: -280px;
+        z-index: 1050;
+        transition: left 0.3s ease;
+      }
+      .admin-sidebar.show {
+        left: 0;
+      }
+      .admin-main {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reusable Header -->
+  <div id="cres-header-placeholder"></div>
+
+  <div class="d-flex admin-layout">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="d-flex align-items-center gap-2 mb-4 px-2">
+        <span class="cres-brand-dot"></span>
+        <h5 class="fw-bold mb-0 text-dark">Admin Portal</h5>
+      </div>
+
+      <nav class="nav flex-column gap-1 flex-grow-1">
+        <a href="/admin.html" class="cres-dash-nav-item">
+          <i class="bi bi-grid-fill"></i> Dashboard
+        </a>
+        <a href="/admin-sellers.html" class="cres-dash-nav-item">
+          <i class="bi bi-person-badge"></i> Tradesmen &amp; Sellers
+        </a>
+        <a href="/admin-products.html" class="cres-dash-nav-item active">
+          <i class="bi bi-box-seam"></i> Products &amp; Curation
+        </a>
+        <a href="/admin-payouts.html" class="cres-dash-nav-item">
+          <i class="bi bi-wallet2"></i> Payouts
+        </a>
+        <a href="/admin-disputes.html" class="cres-dash-nav-item">
+          <i class="bi bi-shield-exclamation"></i> Disputes
+        </a>
+        <a href="/admin-categories.html" class="cres-dash-nav-item">
+          <i class="bi bi-tags"></i> Categories
+        </a>
+        <a href="/admin-orders.html" class="cres-dash-nav-item">
+          <i class="bi bi-receipt"></i> Orders
+        </a>
+        <a href="/admin-customers.html" class="cres-dash-nav-item">
+          <i class="bi bi-people"></i> Customers
+        </a>
+        <a href="/admin-coupons.html" class="cres-dash-nav-item">
+          <i class="bi bi-ticket-perforated"></i> Coupons
+        </a>
+        <a href="/admin-reviews.html" class="cres-dash-nav-item">
+          <i class="bi bi-star"></i> Reviews
+        </a>
+        <a href="/admin-analytics.html" class="cres-dash-nav-item">
+          <i class="bi bi-graph-up-arrow"></i> Analytics
+        </a>
+        <a href="/admin-settings.html" class="cres-dash-nav-item">
+          <i class="bi bi-gear"></i> Settings
+        </a>
+      </nav>
+
+      <div class="pt-3 border-top">
+        <a href="/login.html" class="cres-dash-nav-item text-danger">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
+        <div>
+          <h2 class="cres-page-title mb-1">Products &amp; Curation Review</h2>
+          <p class="text-muted small mb-0">Review tradesman listings, verify provenance &amp; manage catalog items</p>
+        </div>
+        <button class="btn btn-cres-primary rounded-pill px-4 fw-semibold" onclick="openAddProductModal()">
+          <i class="bi bi-plus-lg me-1"></i> Add Direct Product
+        </button>
+      </div>
+
+      <!-- Filters & Search Card -->
+      <div class="cres-card p-4 mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-4">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0 ps-3 text-muted"><i class="bi bi-search"></i></span>
+              <input type="text" id="adminProductSearch" class="form-control bg-light border-0 py-2" placeholder="Search by title, artist, or tradesman..." oninput="filterAdminProducts()">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select bg-light border-0 py-2" id="adminCategoryFilter" onchange="filterAdminProducts()">
+              <option value="">All Categories</option>
+              <option value="Artworks">Artworks &amp; Paintings</option>
+              <option value="Antique Sculptures">Antique Sculptures</option>
+              <option value="Brass & Metalcrafts">Brass &amp; Metalcrafts</option>
+              <option value="Traditional Textiles">Traditional Textiles</option>
+              <option value="Woodcrafts">Woodcrafts</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select bg-light border-0 py-2" id="adminStatusFilter" onchange="filterAdminProducts()">
+              <option value="">All Curation Statuses</option>
+              <option value="approved">Approved &amp; Live</option>
+              <option value="pending">Pending Moderation</option>
+              <option value="rejected">Rejected / Changes Needed</option>
+            </select>
+          </div>
+          <div class="col-md-2 text-end">
+            <button class="btn btn-outline-secondary btn-sm rounded-pill w-100 py-2" onclick="refreshAdminProducts()">
+              <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Table Card -->
+      <div class="cres-card p-4">
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead class="text-muted small text-uppercase fw-bold border-bottom">
+              <tr>
+                <th scope="col" class="py-3">Creation &amp; Artist</th>
+                <th scope="col" class="py-3">Tradesman / Studio</th>
+                <th scope="col" class="py-3">Category</th>
+                <th scope="col" class="py-3">Price</th>
+                <th scope="col" class="py-3">Curation Status</th>
+                <th scope="col" class="py-3 text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add / Edit Product Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow">
+        <div class="modal-header border-bottom p-4">
+          <h5 class="modal-title fw-bold" id="productModalLabel">Add Marketplace Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="productForm" onsubmit="handleSaveProduct(event)">
+            <input type="hidden" id="pEditId">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="form-label small fw-semibold">Creation Title</label>
+                <input type="text" class="form-control rounded-pill px-3 py-2" id="pName" placeholder="e.g. Vintage Chola Bronze Nataraja Sculpture" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold">Category</label>
+                <select class="form-select rounded-pill px-3 py-2" id="pCategory" required>
+                  <option value="Artworks">Artworks</option>
+                  <option value="Antique Sculptures">Antique Sculptures</option>
+                  <option value="Brass & Metalcrafts">Brass &amp; Metalcrafts</option>
+                  <option value="Traditional Textiles">Traditional Textiles</option>
+                  <option value="Woodcrafts">Woodcrafts</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Price (₹ INR)</label>
+                <input type="number" step="1" class="form-control rounded-pill px-3 py-2" id="pPrice" placeholder="25000" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Available Inventory / Stock</label>
+                <input type="number" class="form-control rounded-pill px-3 py-2" id="pStock" placeholder="1" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Master Artisan / Creator Name</label>
+                <input type="text" class="form-control rounded-pill px-3 py-2" id="pArtist" placeholder="e.g. Master S. Ramalingam">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Origin Region / State</label>
+                <input type="text" class="form-control rounded-pill px-3 py-2" id="pOrigin" placeholder="e.g. Swamimalai, Tamil Nadu">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Era / Age of Antiquity</label>
+                <input type="text" class="form-control rounded-pill px-3 py-2" id="pEra" placeholder="e.g. c. 1950s or 2024 Original">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Medium &amp; Materials</label>
+                <input type="text" class="form-control rounded-pill px-3 py-2" id="pMaterials" placeholder="e.g. Lost-Wax Panchaloha Bronze">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Primary Image URL</label>
+                <input type="url" class="form-control rounded-pill px-3 py-2" id="pImage" placeholder="https://images.unsplash.com/..." required>
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-semibold">Artistic Description &amp; Provenance Notes</label>
+                <textarea class="form-control rounded-4 p-3" id="pDesc" rows="3" placeholder="Detailed provenance, history, and craft report..."></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pCoa" checked>
+                  <label class="form-check-label small fw-semibold" for="pCoa">Physical Certificate of Authenticity (COA) is enclosed with artwork</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer border-0 p-0 pt-4 mt-4">
+              <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-cres-primary rounded-pill px-4">Save Creation</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable Footer -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/components.js"></script>
+  <script>
+    let pModal = null;
+    let allProducts = [];
+
+    async function loadAdminProducts() {
+      const token = localStorage.getItem('hn_token');
+      try {
+        const res = await fetch('/api/admin/products', {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+        if (res.ok) {
+          const json = await res.json();
+          allProducts = json.data || json;
+        }
+      } catch (err) {
+        console.warn('Backend admin products fetch fallback:', err);
+      }
+
+      if (!allProducts || allProducts.length === 0) {
+        allProducts = window.CRESCENDO_DATA ? window.CRESCENDO_DATA.products : [];
+      }
+
+      renderAdminProductsTable(allProducts);
+    }
+
+    function renderAdminProductsTable(prods) {
+      const tbody = document.getElementById('adminProductsTableBody');
+      if (!tbody) return;
+
+      tbody.innerHTML = prods.map(p => {
+        const inStock = (p.stock > 0);
+        const sellerName = p.seller_name || (p.seller && p.seller.store_name) || (p.seller_id === 'seller-ravi-arts' ? 'Ravi Arts Studio' : (p.seller_id === 'seller-heritage-antiquities' ? 'Heritage Antiquities' : 'Platform Owner'));
+        const isPlatform = !p.seller_id || p.seller_id === 'seller-platform';
+
+        const status = p.status || 'approved';
+        let statusBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 small">Live &amp; Approved</span>`;
+        if (status === 'pending') {
+          statusBadge = `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-2 py-1 small">Pending Review</span>`;
+        } else if (status === 'rejected') {
+          statusBadge = `<span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2 py-1 small">Changes Requested</span>`;
+        }
+
+        return `
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <div class="cres-cart-img-box rounded-3 border p-1" style="width: 48px; height: 48px; background: #FAF9FE; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                  <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div>
+                  <div class="fw-bold text-dark"><a href="/product-details.html?id=${p.id}" class="text-dark text-decoration-none hover-primary" target="_blank">${p.name}</a></div>
+                  <div class="text-muted small">${p.artist || p.craft_type || 'Master Creation'}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="badge ${isPlatform ? 'bg-secondary-subtle text-secondary' : 'bg-primary-subtle text-primary'} px-2 py-1">
+                ${sellerName}
+              </span>
+            </td>
+            <td><span class="text-secondary fw-semibold small">${p.category || 'Artwork'}</span></td>
+            <td class="fw-bold text-dark">${formatPrice(p.price)}</td>
+            <td>${statusBadge}</td>
+            <td class="text-end">
+              <div class="dropdown d-inline-block">
+                <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="dropdown" aria-expanded="false" style="width: 32px; height: 32px;">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
+                  <li><a class="dropdown-item small" href="javascript:void(0)" onclick="approveProduct('${p.id}')"><i class="bi bi-check-circle text-success me-2"></i>Approve &amp; Publish</a></li>
+                  <li><a class="dropdown-item small" href="javascript:void(0)" onclick="rejectProduct('${p.id}')"><i class="bi bi-exclamation-circle text-warning me-2"></i>Request Changes</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item small" href="javascript:void(0)" onclick="editProduct('${p.id}')"><i class="bi bi-pencil me-2"></i>Edit Details</a></li>
+                  <li><a class="dropdown-item small text-danger" href="javascript:void(0)" onclick="deleteAdminProduct('${p.id}')"><i class="bi bi-trash3 me-2"></i>Delete</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.filterAdminProducts = function() {
+      const search = (document.getElementById('adminProductSearch').value || '').toLowerCase();
+      const cat = document.getElementById('adminCategoryFilter').value;
+      const status = document.getElementById('adminStatusFilter').value;
+
+      const filtered = allProducts.filter(p => {
+        const matchesSearch = !search || 
+          (p.name && p.name.toLowerCase().includes(search)) ||
+          (p.artist && p.artist.toLowerCase().includes(search)) ||
+          (p.seller_name && p.seller_name.toLowerCase().includes(search));
+
+        const matchesCat = !cat || p.category === cat;
+        const matchesStatus = !status || (p.status || 'approved') === status;
+
+        return matchesSearch && matchesCat && matchesStatus;
+      });
+
+      renderAdminProductsTable(filtered);
+    };
+
+    window.refreshAdminProducts = function() {
+      loadAdminProducts();
+      showToast('Products and curation queue refreshed.', 'info');
+    };
+
+    window.approveProduct = async function(id) {
+      const token = localStorage.getItem('hn_token');
+      try {
+        await fetch(`/api/admin/products/${id}/moderate`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', ...(token ? { 'Authorization': `Bearer ${token}` } : {}) },
+          body: JSON.stringify({ status: 'approved' })
+        });
+      } catch (err) {
+        console.warn('Moderation fallback:', err);
+      }
+      const prod = allProducts.find(p => p.id === id);
+      if (prod) prod.status = 'approved';
+      filterAdminProducts();
+      showToast('Creation approved and published to live marketplace! 🌟', 'success');
+    };
+
+    window.rejectProduct = async function(id) {
+      const token = localStorage.getItem('hn_token');
+      try {
+        await fetch(`/api/admin/products/${id}/moderate`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', ...(token ? { 'Authorization': `Bearer ${token}` } : {}) },
+          body: JSON.stringify({ status: 'rejected', feedback: 'Please update authenticity documentation' })
+        });
+      } catch (err) {
+        console.warn('Moderation fallback:', err);
+      }
+      const prod = allProducts.find(p => p.id === id);
+      if (prod) prod.status = 'rejected';
+      filterAdminProducts();
+      showToast('Changes requested from tradesman.', 'warning');
+    };
+
+    window.openAddProductModal = function() {
+      document.getElementById('productForm').reset();
+      document.getElementById('pEditId').value = '';
+      document.getElementById('productModalLabel').textContent = 'Add Marketplace Product';
+      if (!pModal) pModal = new bootstrap.Modal(document.getElementById('productModal'));
+      pModal.show();
+    };
+
+    window.editProduct = function(id) {
+      const p = allProducts.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('pEditId').value = p.id;
+      document.getElementById('pName').value = p.name || '';
+      document.getElementById('pCategory').value = p.category || 'Artworks';
+      document.getElementById('pPrice').value = p.price || '';
+      document.getElementById('pStock').value = p.stock || 1;
+      document.getElementById('pArtist').value = p.artist || '';
+      document.getElementById('pOrigin').value = p.origin_region || '';
+      document.getElementById('pEra').value = p.year_created || p.age_era || '';
+      document.getElementById('pMaterials').value = p.materials || '';
+      document.getElementById('pImage').value = p.image || '';
+      document.getElementById('pDesc').value = p.description || '';
+      document.getElementById('pCoa').checked = p.certificate_of_authenticity !== false;
+
+      document.getElementById('productModalLabel').textContent = 'Edit Creation Details';
+      if (!pModal) pModal = new bootstrap.Modal(document.getElementById('productModal'));
+      pModal.show();
+    };
+
+    window.handleSaveProduct = async function(e) {
+      e.preventDefault();
+      const editId = document.getElementById('pEditId').value;
+      const newProductData = {
+        name: document.getElementById('pName').value.trim(),
+        category: document.getElementById('pCategory').value,
+        price: parseFloat(document.getElementById('pPrice').value) || 0,
+        stock: parseInt(document.getElementById('pStock').value, 10) || 1,
+        artist: document.getElementById('pArtist').value.trim(),
+        origin_region: document.getElementById('pOrigin').value.trim(),
+        year_created: document.getElementById('pEra').value.trim(),
+        materials: document.getElementById('pMaterials').value.trim(),
+        image: document.getElementById('pImage').value.trim(),
+        description: document.getElementById('pDesc').value.trim(),
+        certificate_of_authenticity: document.getElementById('pCoa').checked,
+        seller_id: 'seller-platform',
+        seller_name: 'Platform Store',
+        status: 'approved'
+      };
+
+      if (editId) {
+        const idx = allProducts.findIndex(p => p.id === editId);
+        if (idx !== -1) {
+          allProducts[idx] = { ...allProducts[idx], ...newProductData };
+        }
+        showToast('Creation updated successfully! ✨', 'success');
+      } else {
+        const newId = 'prod-' + Date.now();
+        allProducts.unshift({ id: newId, ...newProductData });
+        showToast('New creation added to catalog! 🎉', 'success');
+      }
+
+      if (pModal) pModal.hide();
+      filterAdminProducts();
+    };
+
+    window.deleteAdminProduct = function(id) {
+      if (!confirm('Are you sure you want to remove this creation from the catalog?')) return;
+      allProducts = allProducts.filter(p => p.id !== id);
+      filterAdminProducts();
+      showToast('Product deleted.', 'info');
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHeader('admin');
+      renderFooter();
+      loadAdminProducts();
+    });
+  </script>
+</body>
+</html>

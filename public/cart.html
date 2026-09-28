@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - Heritage Marketplace</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Reusable Header Placeholder -->
+  <div id="cres-header-placeholder"></div>
+
+  <main class="container my-5">
+    <!-- Breadcrumb & Title Section -->
+    <div class="mb-4">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted mb-2">
+          <li class="breadcrumb-item"><a href="/index.html" class="text-muted text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item"><a href="/products.html" class="text-muted text-decoration-none">Art &amp; Antiques</a></li>
+          <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">Marketplace Cart</li>
+        </ol>
+      </nav>
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2">
+        <div>
+          <h1 class="display-6 fw-bold mb-1 text-dark" style="font-family: var(--cres-font-heading);">Shopping Cart</h1>
+          <p class="text-muted mb-0" id="cart-item-count-subtitle">Review your selected creations from verified tradesmen.</p>
+        </div>
+        <div id="clear-cart-btn-wrap">
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-1 shadow-sm" onclick="window.clearFullCart()">
+            <i class="bi bi-trash3"></i> Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="row g-4 g-lg-5" id="cart-main-row">
+      
+      <!-- Left Column: Products List in a Card Box -->
+      <div class="col-lg-8">
+        <!-- Master Cart Box -->
+        <div class="cres-cart-box p-0 mb-4 bg-white shadow-sm border rounded-4 overflow-hidden">
+
+          <!-- Items Container -->
+          <div id="cart-items-list">
+            <!-- Rendered dynamically by JavaScript -->
+          </div>
+
+          <!-- Box Bottom Bar -->
+          <div class="p-3 p-sm-4 bg-light bg-opacity-50 border-top d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <a href="/products.html" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2">
+              <i class="bi bi-arrow-left"></i> Explore More Creations
+            </a>
+            <div class="text-muted small d-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-success fs-6"></i>
+              <span>Direct fulfillment with verified artisan studios</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Features Row -->
+        <div class="row g-3 text-center text-sm-start">
+          <div class="col-sm-4">
+            <div class="p-3 bg-white rounded-4 border shadow-sm h-100 d-flex align-items-center gap-3">
+              <div class="rounded-circle p-2 bg-primary bg-opacity-10 text-primary flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                <i class="bi bi-patch-check fs-5"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-0 text-dark small">Authenticity COA</h6>
+                <div class="text-muted" style="font-size: 0.78rem;">Physical certificate enclosed</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="p-3 bg-white rounded-4 border shadow-sm h-100 d-flex align-items-center gap-3">
+              <div class="rounded-circle p-2 bg-success bg-opacity-10 text-success flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                <i class="bi bi-truck fs-5"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-0 text-dark small">Insured Transit</h6>
+                <div class="text-muted" style="font-size: 0.78rem;">Damage-proof crating</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="p-3 bg-white rounded-4 border shadow-sm h-100 d-flex align-items-center gap-3">
+              <div class="rounded-circle p-2 bg-warning bg-opacity-10 text-warning flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                <i class="bi bi-chat-dots fs-5"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-0 text-dark small">Direct Artisan Chat</h6>
+                <div class="text-muted" style="font-size: 0.78rem;">Inquire with tradesman</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Coupon & Order Summary -->
+      <div class="col-lg-4">
+        
+        <!-- Coupon Code Box -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+          <label class="fw-bold small mb-2 text-dark d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-ticket-perforated text-primary me-1"></i> Apply Coupon Code</span>
+            <span class="text-muted fw-normal" style="font-size: 0.75rem;">(Try: HERITAGE10)</span>
+          </label>
+          <div class="d-flex gap-2">
+            <input type="text" id="cart-coupon-input" class="form-control rounded-pill px-3" placeholder="Enter coupon code" value="HERITAGE10">
+            <button type="button" class="btn cres-btn-primary px-4 fw-semibold" onclick="window.applyCartCoupon()">Apply</button>
+          </div>
+          <div id="coupon-feedback" class="small mt-2"></div>
+        </div>
+
+        <!-- Order Summary Box -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white position-sticky" style="top: 95px;">
+          <h5 class="fw-bold mb-3 text-dark pb-2 border-bottom">Order Summary</h5>
+          
+          <div class="d-flex justify-content-between mb-2 small text-muted">
+            <span>Subtotal</span>
+            <span class="fw-bold text-dark fs-6" id="cart-subtotal">₹0</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-2 small" id="cart-discount-row">
+            <span class="text-muted">Discount <span class="badge bg-danger-subtle text-danger ms-1" id="coupon-tag-name">HERITAGE10</span></span>
+            <span class="fw-bold text-danger" id="cart-discount">-₹0</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3 small text-muted">
+            <span>Insured Art Transit</span>
+            <span class="fw-bold text-success" id="cart-shipping">Free</span>
+          </div>
+
+          <hr class="my-3 opacity-25">
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <span class="fw-bold fs-5 text-dark">Total</span>
+              <div class="text-muted" style="font-size: 0.72rem;">Including GST &amp; Transit Insurance</div>
+            </div>
+            <span class="fw-bold fs-4" style="color: var(--cres-primary);" id="cart-total">₹0</span>
+          </div>
+
+          <div class="d-flex flex-column gap-2 mb-3">
+            <a href="/checkout.html" class="btn cres-btn-primary w-100 py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+              <i class="bi bi-lock-fill"></i> Proceed to Checkout
+            </a>
+            <a href="/products.html" class="btn cres-btn-outline w-100 py-2 text-center small">
+              Explore More Creations
+            </a>
+          </div>
+
+          <!-- Accepted Payment Methods -->
+          <div class="pt-3 border-top text-center">
+            <div class="text-muted small mb-2" style="font-size: 0.75rem;">Guaranteed Safe &amp; Secure Escrow Checkout</div>
+            <div class="d-flex justify-content-center align-items-center gap-3 text-muted fs-4">
+              <i class="bi bi-credit-card-2-front" title="Credit / Debit Card"></i>
+              <i class="bi bi-shield-lock-fill text-success" title="Escrow Protected"></i>
+              <i class="bi bi-wallet2" title="UPI / NetBanking"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Reusable Footer Placeholder -->
+  <div id="cres-footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    // State management
+    let activeCoupon = 'HERITAGE10';
+    let discountAmount = 0;
+
+    // Default reference cart data with rich marketplace items
+    const DEFAULT_CART = [
+      { 
+        id: 'prod-001', 
+        name: 'Thanjavur Gold Foil Saraswati Devotional Painting', 
+        price: 18500, 
+        seller_id: 'seller-ravi-arts',
+        seller_name: 'Ravi Arts Studio',
+        color: 'Standard Teak Frame', 
+        qty: 1, 
+        image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80' 
+      },
+      { 
+        id: 'prod-002', 
+        name: 'Chola Dynasty Style Bronze Nataraja Idol', 
+        price: 34000, 
+        seller_id: 'seller-heritage-antiquities',
+        seller_name: 'Heritage Antiquities & Metalcrafts',
+        color: 'Antique Bronze', 
+        qty: 1, 
+        image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80' 
+      }
+    ];
+
+    // Read Cart safely
+    function getCartData() {
+      try {
+        const stored = localStorage.getItem('cres_cart');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {
+        console.error('Error reading localStorage:', e);
+      }
+      localStorage.setItem('cres_cart', JSON.stringify(DEFAULT_CART));
+      return [...DEFAULT_CART];
+    }
+
+    // Save Cart safely
+    function saveCartData(cart) {
+      try {
+        localStorage.setItem('cres_cart', JSON.stringify(cart));
+      } catch (e) {
+        console.error('Error saving to localStorage:', e);
+      }
+      if (typeof window.cresUpdateCounters === 'function') {
+        window.cresUpdateCounters();
+      }
+    }
+
+    // Main Render Function
+    function renderCartUI() {
+      const cart = getCartData();
+      const container = document.getElementById('cart-items-list');
+      const subtitle = document.getElementById('cart-item-count-subtitle');
+      const mainRow = document.getElementById('cart-main-row');
+      const clearBtnWrap = document.getElementById('clear-cart-btn-wrap');
+
+      const totalItems = cart.reduce((acc, i) => acc + (parseInt(i.qty, 10) || 1), 0);
+      if (subtitle) {
+        subtitle.textContent = `${totalItems} ${totalItems === 1 ? 'creation' : 'creations'} in your cart`;
+      }
+
+      // Empty Cart View
+      if (!cart || cart.length === 0) {
+        if (clearBtnWrap) clearBtnWrap.style.display = 'none';
+        if (mainRow) {
+          mainRow.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <div class="card border-0 shadow-sm rounded-4 p-5 bg-white mx-auto" style="max-width: 580px;">
+                <div class="rounded-circle bg-light p-4 d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 90px; height: 90px;">
+                  <i class="bi bi-bag-x display-5 text-muted"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-2">Your Marketplace Cart is Empty</h3>
+                <p class="text-muted mb-4">Discover verified master artists, traditional painters, and antique craftsmen to start your collection!</p>
+                <div class="d-flex justify-content-center gap-3">
+                  <a href="/products.html" class="btn cres-btn-primary px-4 py-3 fw-bold">
+                    <i class="bi bi-palette me-2"></i> Browse Art &amp; Antiques
+                  </a>
+                  <a href="/sellers.html" class="btn cres-btn-outline px-4 py-3">
+                    <i class="bi bi-people me-1"></i> Meet Tradesmen
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      if (clearBtnWrap) clearBtnWrap.style.display = 'block';
+
+      let subtotal = 0;
+
+      container.innerHTML = cart.map((item, idx) => {
+        const itemQty = parseInt(item.qty, 10) || 1;
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemTotal = itemPrice * itemQty;
+        subtotal += itemTotal;
+
+        const sellerName = item.seller_name || (item.seller_id === 'seller-heritage-antiquities' ? 'Heritage Antiquities' : 'Ravi Arts Studio');
+        const sellerId = item.seller_id || 'seller-ravi-arts';
+
+        return `
+          <div class="cres-cart-item p-3 p-md-4 border-bottom">
+            <!-- Left: Product Image & Metadata -->
+            <div class="d-flex align-items-center gap-3 flex-grow-1" style="min-width: 220px;">
+              <div class="cres-cart-img-wrapper rounded-3 border p-1" style="width: 80px; height: 80px; background: #FAF9FE; display: flex; align-items: center; justify-content: center;">
+                <img src="${item.image}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+              </div>
+              <div class="flex-grow-1">
+                <div class="mb-1">
+                  <span class="badge bg-light text-dark border px-2 py-1 small">
+                    <i class="bi bi-shop me-1 text-primary"></i> <a href="/seller.html?id=${sellerId}" class="text-dark text-decoration-none fw-semibold">${sellerName}</a>
+                  </span>
+                </div>
+                <h6 class="fw-bold mb-1 text-dark">
+                  <a href="/product-details.html?id=${item.id || ''}" class="text-dark text-decoration-none hover-primary">${item.name}</a>
+                </h6>
+                <div class="text-muted small mb-1">
+                  <span>Variant: <strong class="text-secondary">${item.color || 'Standard'}</strong></span>
+                </div>
+                <div class="fw-bold text-dark small" style="color: var(--cres-primary) !important;">${formatPrice(itemPrice)} each</div>
+              </div>
+            </div>
+
+            <!-- Right Controls: Stepper, Line Total, Delete -->
+            <div class="d-flex align-items-center justify-content-between justify-content-sm-end gap-3 gap-md-4 cres-cart-controls-row mt-3 mt-sm-0">
+              
+              <!-- Quantity Stepper -->
+              <div class="d-flex align-items-center border rounded-pill px-2 py-1 bg-white">
+                <button type="button" class="btn btn-sm btn-link text-muted p-0 text-decoration-none" data-cart-action="decrease" data-cart-index="${idx}" title="Decrease Quantity">
+                  <i class="bi bi-dash fs-6"></i>
+                </button>
+                <span class="fw-bold text-center px-2" style="min-width: 28px;" id="qty-val-${idx}">${itemQty}</span>
+                <button type="button" class="btn btn-sm btn-link text-muted p-0 text-decoration-none" data-cart-action="increase" data-cart-index="${idx}" title="Increase Quantity">
+                  <i class="bi bi-plus fs-6"></i>
+                </button>
+              </div>
+
+              <!-- Line Item Total Price -->
+              <div class="fw-bold text-dark fs-6 text-end text-nowrap" style="min-width: 110px;" id="item-total-${idx}">
+                ${formatPrice(itemTotal)}
+              </div>
+
+              <!-- Remove Button -->
+              <button type="button" class="btn btn-sm text-danger rounded-circle p-1" data-cart-action="remove" data-cart-index="${idx}" title="Remove item">
+                <i class="bi bi-trash3"></i>
+              </button>
+
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Update Summary Numbers
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const discountRow = document.getElementById('cart-discount-row');
+      const discountEl = document.getElementById('cart-discount');
+      const totalEl = document.getElementById('cart-total');
+
+      if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+      
+      let finalDiscount = 0;
+      if (activeCoupon === 'HERITAGE10' || activeCoupon === 'WELCOME10' || activeCoupon === 'SAVE100') {
+        finalDiscount = Math.round(subtotal * 0.10);
+      }
+
+      if (finalDiscount > 0 && discountRow && discountEl) {
+        discountRow.style.display = 'flex';
+        discountEl.textContent = `-${formatPrice(finalDiscount)}`;
+        const tagEl = document.getElementById('coupon-tag-name');
+        if (tagEl) tagEl.textContent = activeCoupon;
+      } else if (discountRow) {
+        discountRow.style.display = 'none';
+      }
+
+      const finalTotal = Math.max(0, subtotal - finalDiscount);
+      if (totalEl) totalEl.textContent = formatPrice(finalTotal);
+    }
+
+    // Direct Quantity Update Handler
+    window.updateCartQty = function(idx, delta) {
+      const cart = getCartData();
+      const index = parseInt(idx, 10);
+      if (cart && cart[index] !== undefined) {
+        let currentQty = parseInt(cart[index].qty, 10);
+        if (isNaN(currentQty) || currentQty < 1) currentQty = 1;
+        
+        currentQty += parseInt(delta, 10);
+
+        if (currentQty <= 0) {
+          const removedName = cart[index].name || 'Creation';
+          cart.splice(index, 1);
+          saveCartData(cart);
+          renderCartUI();
+          if (typeof showToast === 'function') {
+            showToast(`Removed "${removedName}" from cart.`, 'info');
+          }
+          return;
+        }
+
+        cart[index].qty = currentQty;
+        saveCartData(cart);
+        renderCartUI();
+      }
+    };
+    window.updateQty = window.updateCartQty;
+
+    // Remove Single Item
+    window.removeCartItem = function(idx) {
+      const cart = getCartData();
+      const index = parseInt(idx, 10);
+      if (cart && cart[index] !== undefined) {
+        const itemTitle = cart[index].name || 'Creation';
+        cart.splice(index, 1);
+        saveCartData(cart);
+        renderCartUI();
+        if (typeof showToast === 'function') {
+          showToast(`Removed "${itemTitle}" from cart.`, 'info');
+        }
+      }
+    };
+
+    // Clear All Items
+    window.clearFullCart = function() {
+      if (!confirm('Are you sure you want to clear all items from your cart?')) return;
+      saveCartData([]);
+      renderCartUI();
+      if (typeof showToast === 'function') {
+        showToast('Shopping cart cleared.', 'info');
+      }
+    };
+
+    // Coupon Code Application
+    window.applyCartCoupon = function() {
+      const inputEl = document.getElementById('cart-coupon-input');
+      const code = inputEl ? inputEl.value.trim().toUpperCase() : '';
+      const fb = document.getElementById('coupon-feedback');
+
+      if (!code) {
+        if (fb) fb.innerHTML = '<span class="text-danger small">Please enter a coupon code.</span>';
+        return;
+      }
+
+      if (code === 'HERITAGE10' || code === 'WELCOME10' || code === 'SAVE100' || code === 'CRESCENDO') {
+        activeCoupon = code;
+        if (fb) fb.innerHTML = `<span class="text-success fw-bold small"><i class="bi bi-check-circle-fill me-1"></i> Coupon ${code} applied! 10% discount added.</span>`;
+        renderCartUI();
+        if (typeof showToast === 'function') showToast(`Coupon ${code} applied (10% off)! 🎉`, 'success');
+      } else {
+        if (fb) fb.innerHTML = '<span class="text-danger small"><i class="bi bi-exclamation-circle me-1"></i> Invalid coupon code. Try <strong>HERITAGE10</strong> or <strong>WELCOME10</strong></span>';
+      }
+    };
+
+    // Global Event Delegation for Clicks
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-cart-action]');
+      if (!btn) return;
+      
+      const action = btn.getAttribute('data-cart-action');
+      const idx = btn.getAttribute('data-cart-index');
+      
+      if (action === 'increase') {
+        window.updateCartQty(idx, 1);
+      } else if (action === 'decrease') {
+        window.updateCartQty(idx, -1);
+      } else if (action === 'remove') {
+        window.removeCartItem(idx);
+      }
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHeader('cart');
+      renderFooter();
+      renderCartUI();
+    });
+  </script>
+</body>
+</html>
