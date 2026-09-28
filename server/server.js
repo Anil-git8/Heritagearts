@@ -36,6 +36,7 @@ app.get('/checkout', (req, res) => res.sendFile(path.join(__dirname, '../public/
 app.get('/order-success', (req, res) => res.sendFile(path.join(__dirname, '../public/order-success.html')));
 app.get('/order-tracking', (req, res) => res.sendFile(path.join(__dirname, '../public/order-tracking.html')));
 app.get('/account', (req, res) => res.sendFile(path.join(__dirname, '../public/account.html')));
+app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, '../public/dashboard.html')));
 app.get('/auth', (req, res) => res.sendFile(path.join(__dirname, '../public/auth.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, '../public/admin.html')));
 
