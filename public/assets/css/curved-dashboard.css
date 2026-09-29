@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gentle Curved S-Navbar & Modern Workspace Dashboard Stylesheet
-   Pure organic wave - 100% zero horizontal lines, zero boundary cuts
+   Ultra-Smooth Open/Close Physics, Cascading Nav Items, and Micro-Interactions
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
@@ -21,6 +21,11 @@
 
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Outfit', sans-serif;
+
+  /* Smooth Animation Easing Curves */
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --sidebar-transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -47,28 +52,46 @@ html, body {
   min-height: 100vh;
   background-color: var(--canvas-bg);
   position: relative;
+  transition: all 0.45s var(--ease-smooth);
 }
 
 /* ==========================================================================
-   GENTLE CURVED WAVY SIDEBAR (ZERO HORIZONTAL LINES)
+   GENTLE CURVED WAVY SIDEBAR (ULTRA SMOOTH OPEN / CLOSE ANIMATIONS)
    ========================================================================== */
 .sidebar-wrapper {
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 80px;
+  width: 82px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  z-index: 100;
+  z-index: 1000;
   user-select: none;
   background: transparent;
   border: 0 !important;
   outline: 0 !important;
+  
+  /* Smooth Slide & Transform Physics */
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.45s var(--ease-spring), opacity 0.35s ease, width 0.45s var(--ease-smooth), visibility 0.45s ease;
+  will-change: transform, opacity, width;
 }
 
-/* SVG Shape Container - No borders or clipping artifacts */
+/* Collapsed State */
+.sidebar-wrapper.collapsed {
+  transform: translateX(-110%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  width: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* SVG Shape Container with Smooth Purple Glow Shadow */
 .sidebar-svg-bg {
   position: absolute;
   top: 0;
@@ -80,6 +103,12 @@ html, body {
   border: 0 !important;
   outline: 0 !important;
   filter: drop-shadow(6px 0 20px rgba(85, 60, 242, 0.22));
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-spring);
+}
+
+.sidebar-wrapper.collapsed .sidebar-svg-bg {
+  transform: scaleX(0.7);
 }
 
 .sidebar-svg-bg svg {
@@ -97,9 +126,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
   width: 72px;
-  padding-top: 110px; /* Centered naturally inside the elongated gentle flare */
+  padding-top: 100px; /* Sits naturally inside the elongated flare */
   border: 0 !important;
   outline: 0 !important;
 }
@@ -118,24 +147,40 @@ html, body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
+  
+  /* Cascading Entrance Transitions */
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  transition: transform 0.35s var(--ease-spring), opacity 0.3s ease, background 0.22s ease;
+  transition-delay: calc(var(--item-index, 0) * 28ms);
+  will-change: transform, opacity;
+}
+
+.sidebar-wrapper.collapsed .nav-item-btn {
+  transform: translateX(-30px) scale(0.8);
+  opacity: 0;
+  transition-delay: 0ms;
 }
 
 .nav-item-btn svg {
   stroke: #FFFFFF;
   width: 20px;
   height: 20px;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s var(--ease-spring);
 }
 
 .nav-item-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px) scale(1.08);
 }
 
 .nav-item-btn:hover svg {
-  transform: scale(1.1);
+  transform: scale(1.12);
+}
+
+.nav-item-btn:active {
+  transform: scale(0.95);
 }
 
 /* 1. Top Active Button - Signature White Squircle */
@@ -145,13 +190,14 @@ html, body {
   height: 44px;
   border-radius: 14px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
-  transform: scale(1.02);
+  transform: scale(1.04);
   margin-bottom: 4px;
 }
 
 .nav-item-btn.active:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) translateY(-1px);
   background: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
 }
 
 /* Custom 2x2 Rounded Grid Icon inside active white squircle */
@@ -159,6 +205,11 @@ html, body {
   display: grid;
   grid-template-columns: repeat(2, 6.5px);
   grid-gap: 3.5px;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.nav-item-btn:hover .grid-icon-custom {
+  transform: rotate(90deg);
 }
 
 .grid-icon-custom span {
@@ -168,7 +219,7 @@ html, body {
   border-radius: 2.2px;
 }
 
-/* Dot Badges */
+/* Dot Badges with Pulse */
 .badge-dot-green {
   position: absolute;
   top: 11px;
@@ -179,6 +230,7 @@ html, body {
   border-radius: 50%;
   border: 1.5px solid var(--sidebar-color);
   box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  animation: pulseDot 2s infinite;
 }
 
 .badge-dot-yellow {
@@ -193,13 +245,18 @@ html, body {
   box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
 }
 
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.8; }
+}
+
 /* Tooltips */
 .nav-item-btn[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   left: calc(100% + 14px);
   top: 50%;
-  transform: translateY(-50%) scale(0.9);
+  transform: translateY(-50%) scale(0.85);
   background: #0F172A;
   color: #FFFFFF;
   font-size: 0.75rem;
@@ -209,7 +266,7 @@ html, body {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: all 0.2s ease;
+  transition: all 0.22s var(--ease-spring);
   box-shadow: 0 4px 14px rgba(0,0,0,0.15);
   z-index: 200;
 }
@@ -220,13 +277,100 @@ html, body {
 }
 
 /* ==========================================================================
-   MAIN CANVAS AREA
+   SMOOTH TOGGLE BUTTONS & DRAWER CONTROLS
+   ========================================================================== */
+/* Floating Open Trigger (Appears smoothly when navbar is closed) */
+.sidebar-open-trigger {
+  position: fixed;
+  top: 24px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  color: var(--sidebar-color);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 8px 24px rgba(85, 60, 242, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 900;
+  opacity: 0;
+  transform: scale(0.7) translateX(-20px);
+  pointer-events: none;
+  transition: all 0.35s var(--ease-spring);
+}
+
+.sidebar-open-trigger.visible {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  pointer-events: auto;
+}
+
+.sidebar-open-trigger:hover {
+  background: var(--sidebar-color);
+  color: #FFFFFF;
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(85, 60, 242, 0.28);
+}
+
+/* In-Navbar Collapse Toggle Button */
+.sidebar-collapse-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.22s ease;
+}
+
+.sidebar-collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.1);
+}
+
+/* Frosted Backdrop for Mobile/Drawer Mode */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.sidebar-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   MAIN CANVAS AREA (SMOOTH RESPONSIVE REFIT)
    ========================================================================== */
 .main-canvas {
   flex: 1;
   min-width: 0;
   padding: 38px 48px 48px 36px;
   max-width: 1400px;
+  transition: padding 0.45s var(--ease-smooth), max-width 0.45s var(--ease-smooth);
+}
+
+.sidebar-wrapper.collapsed ~ .main-canvas {
+  padding-left: 64px;
 }
 
 /* Top Hero Greeting */
@@ -266,6 +410,37 @@ html, body {
   color: var(--text-muted);
   max-width: 520px;
   line-height: 1.5;
+}
+
+/* Header Action Group with Toggle */
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.btn-toggle-navbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: var(--text-dark);
+  border: 1px solid var(--border-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: all 0.22s ease;
+}
+
+.btn-toggle-navbar:hover {
+  border-color: var(--sidebar-color);
+  color: var(--sidebar-color);
+  background: #F4F3FE;
+  transform: translateY(-1px);
 }
 
 /* Top Right Action Widgets */
@@ -354,7 +529,7 @@ html, body {
 
 /* ==========================================================================
    CARDS GRID SECTIONS
-   ========================================================================== */
+   ========================================================================= */
 .grid-row-middle {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
@@ -374,6 +549,11 @@ html, body {
   padding: 26px 28px;
   border: 1px solid #ECEFF5;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dash-white-card:hover {
+  box-shadow: 0 10px 30px rgba(85, 60, 242, 0.08);
 }
 
 .card-top-bar {
@@ -786,6 +966,12 @@ html, body {
 }
 
 @media (max-width: 992px) {
+  .sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+  }
   .main-canvas {
     padding: 24px 20px;
   }

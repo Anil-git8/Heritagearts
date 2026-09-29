@@ -3,372 +3,387 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Personal Workspace</title>
+  <title>Workspace Dashboard - Heritage Marketplace</title>
   
-  <!-- Modern Google Fonts -->
+  <!-- Google Fonts & Bootstrap 5 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Bootstrap & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   
-  <!-- Custom Curved Dashboard Styling -->
-  <link rel="stylesheet" href="/assets/css/curved-dashboard.css">
-</head>
-<body>
+  <!-- Master Theme Stylesheets (Same as Home Page) -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <style>
+    /* ==========================================================================
+       Workspace Dashboard Cards (Unified with Heritage Home Page Theme)
+       ========================================================================== */
+    .dash-canvas {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px 60px 20px;
+    }
 
-  <div class="app-container">
+    @media (min-width: 992px) {
+      .dash-canvas {
+        padding-left: 92px;
+        padding-right: 32px;
+      }
+    }
+
+    .dash-hero-title {
+      font-family: var(--cres-font-heading);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--cres-secondary);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .dash-card-white {
+      background: #FFFFFF;
+      border-radius: var(--cres-radius-xl);
+      padding: 26px 28px;
+      border: 1px solid var(--cres-border-subtle);
+      box-shadow: var(--cres-shadow-card);
+      transition: var(--cres-transition);
+    }
+
+    .dash-card-white:hover {
+      box-shadow: var(--cres-shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .quick-widget-box {
+      width: 110px;
+      height: 110px;
+      background: var(--cres-lavender-bg);
+      border-radius: var(--cres-radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid var(--cres-border);
+      transition: var(--cres-transition);
+    }
+
+    .quick-widget-box:hover {
+      background: var(--cres-primary-light);
+      transform: translateY(-3px);
+      box-shadow: var(--cres-shadow-hover);
+    }
+
+    .stay-organize-widget {
+      min-width: 170px;
+      height: 110px;
+      background: #FFFFFF;
+      border-radius: var(--cres-radius-lg);
+      padding: 16px 18px;
+      border: 1px solid var(--cres-border);
+      box-shadow: var(--cres-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: var(--cres-transition);
+    }
+
+    .stay-organize-widget:hover {
+      border-color: var(--cres-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--cres-shadow-hover);
+    }
+
+    /* Highlight floating card in notifications */
+    .notif-float-item {
+      background: #FFFFFF;
+      border-radius: var(--cres-radius-md);
+      padding: 16px 20px;
+      border: 1px solid var(--cres-border);
+      box-shadow: var(--cres-shadow-card);
+      margin-bottom: 14px;
+      transition: var(--cres-transition);
+    }
+
+    .notif-float-item:hover {
+      border-color: var(--cres-primary);
+      transform: translateY(-2px);
+    }
+
+    .task-bar-item {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: var(--cres-radius-md);
+      background: #FFFFFF;
+      border: 1px solid var(--cres-border-subtle);
+      transition: var(--cres-transition);
+    }
+
+    .task-bar-item:hover {
+      border-color: var(--cres-primary);
+      box-shadow: var(--cres-shadow-sm);
+      transform: translateX(3px);
+    }
+
+    .premium-banner-box {
+      background: linear-gradient(145deg, #6C55F9 0%, #5B42F3 50%, #4D33EB 100%);
+      border-radius: var(--cres-radius-xl);
+      padding: 30px 24px;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+      box-shadow: var(--cres-shadow-hero);
+    }
+
+    @media (max-width: 991px) {
+      .task-bar-item {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body style="background: var(--cres-body-bg);">
+
+  <!-- Global Header & Exact Home Page Side Navbar Placeholder -->
+  <div id="cres-header-placeholder"></div>
+
+  <!-- Main Workspace Dashboard Content -->
+  <main class="dash-canvas">
     
-    <!-- ======================================================================
-         CURVED ORGANIC WAVY SIDEBAR (ZERO HORIZONTAL LINES)
-         ====================================================================== -->
-    <aside class="sidebar-wrapper" id="curvedSidebar">
-      
-      <!-- SVG Continuous Pure Bezier Wave -->
-      <div class="sidebar-svg-bg">
-        <svg viewBox="0 0 80 960" preserveAspectRatio="none" shape-rendering="geometricPrecision" style="border:0;outline:0;display:block;">
-          <defs>
-            <linearGradient id="sidebarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#5E46F5" />
-              <stop offset="45%" stop-color="#553CF2" />
-              <stop offset="100%" stop-color="#4B31E8" />
-            </linearGradient>
-          </defs>
-          <!-- Pure smooth tangent start at (0,0) and tangent end at (0,960) with zero horizontal segments -->
-          <path d="M 0,0 
-                   C 0,70 18,125 44,155 
-                   C 64,178 78,202 78,236 
-                   L 78,740 
-                   C 78,774 64,798 44,820 
-                   C 18,850 0,900 0,960 
-                   Z" 
-                fill="url(#sidebarGrad)" 
-                stroke="none" />
-        </svg>
+    <!-- Top Hero / Greeting Section -->
+    <header class="d-flex flex-wrap align-items-start justify-content-between gap-4 mb-4 pt-2">
+      <div>
+        <h1 class="dash-hero-title mb-2">
+          Hi, James! <span class="d-inline-flex align-items-center justify-content-center p-2 rounded-3" style="background: var(--cres-lavender-bg); font-size: 1.2rem; vertical-align: middle;">🔮</span><br>
+          What are your plans for today?
+        </h1>
+        <p class="text-muted mb-0" style="max-width: 540px; font-size: 0.98rem;">
+          This platform is designed to revolutionize the way you organize and access your notes, heritage collections, and tasks.
+        </p>
       </div>
 
-      <!-- Vertical Stack of 10 Icons -->
-      <nav class="sidebar-nav">
-        <!-- 1. Top Active Button (White Squircle with 2x2 Rounded Grid) -->
-        <button class="nav-item-btn active" data-tooltip="Dashboard" onclick="switchNav(this)">
-          <div class="grid-icon-custom">
-            <span></span><span></span>
-            <span></span><span></span>
+      <!-- Top Right Widgets -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Add Card -->
+        <div class="quick-widget-box" onclick="openAssignmentModal()" title="Add New Item">
+          <div class="d-flex align-items-center justify-content-center rounded-3 text-white shadow-sm" style="width: 40px; height: 40px; background: var(--cres-primary);">
+            <i class="bi bi-plus-lg fs-5"></i>
           </div>
-        </button>
+        </div>
 
-        <!-- 2. Person / User Profile -->
-        <button class="nav-item-btn" data-tooltip="Profile" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-        </button>
+        <!-- Stay Organized Card -->
+        <div class="stay-organize-widget" onclick="openAssignmentModal()">
+          <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 38px; height: 38px; background: var(--cres-primary-light); color: var(--cres-primary);">
+            <i class="bi bi-calendar2-check fs-5"></i>
+          </div>
+          <div>
+            <div class="fw-bold small text-dark">Stay organized</div>
+            <div class="text-muted" style="font-size: 0.75rem;">A clear structure for your notes</div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-        <!-- 3. Palette Icon with Neon Green Dot Badge -->
-        <button class="nav-item-btn" data-tooltip="Design Studio" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="13.5" cy="6.5" r=".7" fill="currentColor"/>
-            <circle cx="17.5" cy="10.5" r=".7" fill="currentColor"/>
-            <circle cx="8.5" cy="7.5" r=".7" fill="currentColor"/>
-            <circle cx="6.5" cy="12.5" r=".7" fill="currentColor"/>
-            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/>
-          </svg>
-          <span class="badge-dot-green"></span>
-        </button>
-
-        <!-- 4. Ribbon / Verified Badge with Checkmark -->
-        <button class="nav-item-btn" data-tooltip="Verified Tasks" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l2.4 2.4 3.4-.4 1.2 3.2 3.1 1.5-.7 3.3 2 2.8-2 2.8.7 3.3-3.1 1.5-1.2 3.2-3.4-.4L12 22l-2.4-2.4-3.4.4-1.2-3.2-3.1-1.5.7-3.3-2-2.8 2-2.8-.7-3.3 3.1-1.5 1.2-3.2 3.4.4L12 2z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </button>
-
-        <!-- 5. Bell Notifications -->
-        <button class="nav-item-btn" data-tooltip="Notifications" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
-            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-          </svg>
-        </button>
-
-        <!-- 6. Shopping Bag -->
-        <button class="nav-item-btn" data-tooltip="Store & Orders" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-            <path d="M3 6h18"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-        </button>
-
-        <!-- 7. Mail / Envelope with Yellow Dot Badge -->
-        <button class="nav-item-btn" data-tooltip="Messages" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-          <span class="badge-dot-yellow"></span>
-        </button>
-
-        <!-- 8. Document / Notes Card -->
-        <button class="nav-item-btn" data-tooltip="Notes & Docs" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="18" height="18" x="3" y="3" rx="4"/>
-            <path d="M7 8h10"/>
-            <path d="M7 12h10"/>
-            <path d="M7 16h6"/>
-          </svg>
-        </button>
-
-        <!-- 9. Pie Chart Analytics -->
-        <button class="nav-item-btn" data-tooltip="Analytics" onclick="switchNav(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
-            <path d="M22 12A10 10 0 0 0 12 2v10z"/>
-          </svg>
-        </button>
-
-        <!-- 10. Logout / Exit -->
-        <button class="nav-item-btn" data-tooltip="Exit / Logout" onclick="handleLogout(this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" x2="9" y1="12" y2="12"/>
-          </svg>
-        </button>
-      </nav>
-    </aside>
-
-    <!-- ======================================================================
-         MAIN CONTENT CANVAS
-         ====================================================================== -->
-    <main class="main-canvas">
+    <!-- Middle Grid: Notifications & Assignments -->
+    <div class="row g-4 mb-4">
       
-      <!-- Top Hero / Greeting Section -->
-      <header class="hero-row">
-        <div>
-          <h1 class="hero-heading">
-            Hi, James! <span class="hero-badge-icon">🔮</span><br>
-            What are your plans for today?
-          </h1>
-          <p class="hero-subtext">
-            This platform is designed to revolutionize the way you organize and access your notes.
-          </p>
-        </div>
-
-        <!-- Top Right Widgets -->
-        <div class="top-widgets-group">
-          <!-- Lavender Add Card -->
-          <div class="widget-add-card" onclick="openAssignmentModal()" title="Add New Item">
-            <div class="widget-add-btn">
-              <i class="bi bi-plus-lg"></i>
-            </div>
-          </div>
-
-          <!-- Stay Organized Card -->
-          <div class="widget-organize-card" onclick="openAssignmentModal()">
-            <div class="widget-organize-icon">
-              <i class="bi bi-calendar2-check"></i>
-            </div>
-            <div>
-              <div class="widget-organize-title">Stay organized</div>
-              <div class="widget-organize-desc">A clear structure for your notes</div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Middle Grid: Notifications & Assignments -->
-      <section class="grid-row-middle">
-        
-        <!-- Notifications Card -->
-        <div class="dash-white-card">
-          <div class="card-top-bar">
-            <h2 class="card-main-title mb-0">Notifications</h2>
-            <button class="text-btn-action" onclick="clearNotifications()">
-              <i class="bi bi-trash3"></i> Clear
+      <!-- Notifications Card -->
+      <div class="col-lg-6">
+        <div class="dash-card-white h-100">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h3 class="fw-bold mb-0 text-dark" style="font-family: var(--cres-font-heading); font-size: 1.25rem;">Notifications</h3>
+            <button class="btn btn-sm btn-link text-muted text-decoration-none fw-semibold p-0" onclick="clearNotifications()">
+              <i class="bi bi-trash3 me-1"></i> Clear
             </button>
           </div>
 
           <div id="notificationsArea">
             <!-- 1. Floating Highlight Event Card -->
-            <div class="highlight-notif-card">
-              <div class="notif-title-line">
-                <span class="notif-heading">
-                  Upcoming event <span class="notif-green-dot"></span>
+            <div class="notif-float-item">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold text-dark d-flex align-items-center gap-2">
+                  Upcoming event <span class="rounded-circle d-inline-block" style="width: 8px; height: 8px; background: #22C55E;"></span>
                 </span>
                 <div class="d-flex align-items-center gap-2">
                   <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-three-dots"></i></button>
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar" style="width: 22px; height: 22px; border-radius: 50%;">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="rounded-circle shadow-sm" style="width: 24px; height: 24px; object-fit: cover;">
                   <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-pencil"></i></button>
                 </div>
               </div>
               
-              <div class="notif-subline">
+              <div class="text-muted small mb-3">
                 Leading design meetup • Time 50 min
               </div>
 
-              <div class="notif-chips-row">
-                <div class="notif-chip">
-                  <i class="bi bi-calendar-event"></i>
-                  <span>Sat, 12 May</span>
-                </div>
-                <div class="notif-chip">
-                  <i class="bi bi-clock"></i>
-                  <span>11:45 AM - 12:45 AM</span>
-                </div>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="badge rounded-pill bg-light text-dark border px-3 py-2 fw-semibold">
+                  <i class="bi bi-calendar-event text-primary me-1"></i> Sat, 12 May
+                </span>
+                <span class="badge rounded-pill bg-light text-dark border px-3 py-2 fw-semibold">
+                  <i class="bi bi-clock text-primary me-1"></i> 11:45 AM - 12:45 AM
+                </span>
               </div>
             </div>
 
             <!-- 2. Message Item -->
-            <div class="sub-notif-box">
+            <div class="p-3 rounded-4" style="background: var(--cres-lavender-bg); border: 1px solid var(--cres-border-subtle);">
               <div class="d-flex align-items-center justify-content-between mb-1">
-                <div class="fw-bold text-dark" style="font-size: 0.9rem;">
-                  Message : <span style="color: var(--sidebar-color);">Product design</span>
+                <div class="fw-bold text-dark small">
+                  Message : <span class="text-primary">Product design</span>
                 </div>
-                <i class="bi bi-three-dots text-muted cursor-pointer"></i>
+                <i class="bi bi-three-dots text-muted"></i>
               </div>
-              <div class="text-muted" style="font-size: 0.82rem;">
-                <i class="bi bi-chat-left-text me-1" style="color: var(--sidebar-color);"></i> Message from Rachel Lee...
+              <div class="text-muted small">
+                <i class="bi bi-chat-left-text me-1 text-primary"></i> Message from Rachel Lee: "Review requested on final packaging mockup..."
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Assignments Card -->
-        <div class="dash-white-card">
-          <div class="card-top-bar">
-            <h2 class="card-main-title mb-0">Assignments</h2>
-            <button class="text-btn-action" onclick="openAssignmentModal()">
-              <i class="bi bi-pencil-square"></i> Edit
-            </button>
-          </div>
-
-          <!-- Tags Row -->
-          <div class="d-flex align-items-center justify-content-between mb-2">
-            <div class="assignment-tags mb-0">
-              <span class="pill-tag blue">Motion design</span>
-              <span class="pill-tag gray">Logo</span>
+      <!-- Assignments Card -->
+      <div class="col-lg-6">
+        <div class="dash-card-white h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h3 class="fw-bold mb-0 text-dark" style="font-family: var(--cres-font-heading); font-size: 1.25rem;">Assignments</h3>
+              <button class="btn btn-sm btn-link text-muted text-decoration-none fw-semibold p-0" onclick="openAssignmentModal()">
+                <i class="bi bi-pencil-square me-1"></i> Edit
+              </button>
             </div>
-            <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-three-dots"></i></button>
-          </div>
 
-          <!-- Headline & High Priority -->
-          <div class="d-flex align-items-start justify-content-between gap-3">
-            <h3 class="assignment-title-text">
-              Design a packaging concept for a new product
-            </h3>
-            <span class="pill-tag coral flex-shrink-0">High</span>
-          </div>
+            <!-- Tags -->
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary fw-bold px-3 py-1">Motion design</span>
+                <span class="badge rounded-pill bg-light text-dark border px-3 py-1 fw-semibold">Logo</span>
+              </div>
+              <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-three-dots"></i></button>
+            </div>
 
-          <!-- Assignee & Tag -->
-          <div class="assignment-meta-bar">
-            <span class="pill-tag green">Package design</span>
-            <div class="user-profile-assignee">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Rachel Lee">
-              <span>Rachel Lee</span>
+            <!-- Headline & High Priority -->
+            <div class="d-flex align-items-start justify-content-between gap-3 my-3">
+              <h4 class="fw-bold text-dark mb-0" style="font-size: 1.15rem; line-height: 1.4;">
+                Design a packaging concept for a new product
+              </h4>
+              <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger fw-bold px-3 py-1">High</span>
+            </div>
+
+            <!-- Assignee & Tag -->
+            <div class="d-flex align-items-center justify-content-between pt-2 pb-3 mb-3 border-bottom border-dashed">
+              <span class="badge rounded-pill bg-success bg-opacity-10 text-success fw-bold px-3 py-1">Package design</span>
+              <div class="d-flex align-items-center gap-2 small fw-semibold text-dark">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Rachel Lee" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
+                <span>Rachel Lee</span>
+              </div>
             </div>
           </div>
 
           <!-- Add Button -->
-          <button class="btn-add-new-assignment" onclick="openAssignmentModal()">
-            <i class="bi bi-plus-circle-fill"></i> Add new assignment
+          <button class="btn w-100 py-2 rounded-pill fw-bold border-dashed" style="background: var(--cres-primary-light); color: var(--cres-primary); border: 1px dashed var(--cres-primary);" onclick="openAssignmentModal()">
+            <i class="bi bi-plus-circle-fill me-1"></i> Add new assignment
           </button>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- Bottom Grid: Today Tasks & Go Premium -->
-      <section class="grid-row-bottom">
-        
-        <!-- Today Tasks Card -->
-        <div class="dash-white-card">
-          <div class="card-top-bar">
-            <div class="tasks-title-stack">
-              <h2 class="card-main-title mb-0">Today tasks</h2>
+    <!-- Bottom Grid: Today Tasks & Go Premium -->
+    <div class="row g-4">
+      
+      <!-- Today Tasks Card -->
+      <div class="col-lg-8">
+        <div class="dash-card-white h-100">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <h3 class="fw-bold mb-0 text-dark" style="font-family: var(--cres-font-heading); font-size: 1.25rem;">Today tasks</h3>
               
               <!-- Avatar Group Stack -->
-              <div class="avatars-overlap">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User 1">
-                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="User 2">
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="User 3">
+              <div class="d-flex align-items-center">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User 1" class="rounded-circle border border-2 border-white shadow-sm" style="width: 28px; height: 28px; margin-left: 0; object-fit: cover;">
+                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="User 2" class="rounded-circle border border-2 border-white shadow-sm" style="width: 28px; height: 28px; margin-left: -8px; object-fit: cover;">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="User 3" class="rounded-circle border border-2 border-white shadow-sm" style="width: 28px; height: 28px; margin-left: -8px; object-fit: cover;">
               </div>
 
               <!-- Counters -->
-              <span class="task-count-chip">12</span>
-              <span class="task-count-chip active">15</span>
+              <span class="badge rounded-pill bg-light text-dark border px-2 py-1 small fw-bold">12</span>
+              <span class="badge rounded-pill text-white px-2 py-1 small fw-bold" style="background: var(--cres-primary);">15</span>
             </div>
 
-            <!-- Actions -->
             <div class="d-flex align-items-center gap-2">
-              <button class="text-btn-action" onclick="openAssignmentModal()"><i class="bi bi-pencil"></i> Edit</button>
-              <button class="text-btn-action" onclick="shareTasks()"><i class="bi bi-share"></i> Share</button>
+              <button class="btn btn-sm btn-link text-muted text-decoration-none fw-semibold p-0" onclick="openAssignmentModal()"><i class="bi bi-pencil me-1"></i>Edit</button>
+              <button class="btn btn-sm btn-link text-muted text-decoration-none fw-semibold p-0 ms-2" onclick="shareTasks()"><i class="bi bi-share me-1"></i>Share</button>
             </div>
           </div>
 
           <!-- Tasks List -->
-          <div class="tasks-rows-container" id="tasksList">
+          <div class="d-flex flex-column gap-3" id="tasksList">
             
             <!-- Task 1 -->
-            <div class="task-item-card">
+            <div class="task-bar-item">
               <div>
-                <div class="task-name">Conduct research</div>
-                <div class="task-date">14 May, 09:30 AM</div>
+                <div class="fw-bold text-dark small">Conduct research</div>
+                <div class="text-muted" style="font-size: 0.75rem;">14 May, 09:30 AM</div>
               </div>
-              <div class="task-dur">
-                Duration<br><strong>02 h 45 m</strong>
+              <div class="small text-muted">
+                Duration<br><strong class="text-dark">02 h 45 m</strong>
               </div>
-              <div class="task-prog-wrap">
-                <span class="task-prog-num">90%</span>
-                <div class="task-prog-bar">
-                  <div class="task-prog-fill" style="width: 90%;"></div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="fw-bold text-dark small" style="min-width: 32px;">90%</span>
+                <div class="progress flex-grow-1" style="height: 6px;">
+                  <div class="progress-bar rounded-pill" style="width: 90%; background: var(--cres-primary);"></div>
                 </div>
               </div>
-              <div class="task-meta-icons">
+              <div class="d-flex align-items-center justify-content-end gap-3 text-muted small fw-semibold">
                 <span><i class="bi bi-paperclip me-1"></i>4</span>
                 <span><i class="bi bi-chat-square-dots me-1"></i>16</span>
               </div>
             </div>
 
             <!-- Task 2 -->
-            <div class="task-item-card">
+            <div class="task-bar-item">
               <div>
-                <div class="task-name">Schedule a meeting</div>
-                <div class="task-date">15 May, 10:15 AM</div>
+                <div class="fw-bold text-dark small">Schedule a meeting</div>
+                <div class="text-muted" style="font-size: 0.75rem;">15 May, 10:15 AM</div>
               </div>
-              <div class="task-dur">
-                Duration<br><strong>04 h 55 m</strong>
+              <div class="small text-muted">
+                Duration<br><strong class="text-dark">04 h 55 m</strong>
               </div>
-              <div class="task-prog-wrap">
-                <span class="task-prog-num">50%</span>
-                <div class="task-prog-bar">
-                  <div class="task-prog-fill" style="width: 50%;"></div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="fw-bold text-dark small" style="min-width: 32px;">50%</span>
+                <div class="progress flex-grow-1" style="height: 6px;">
+                  <div class="progress-bar rounded-pill" style="width: 50%; background: var(--cres-primary);"></div>
                 </div>
               </div>
-              <div class="task-meta-icons">
+              <div class="d-flex align-items-center justify-content-end gap-3 text-muted small fw-semibold">
                 <span><i class="bi bi-paperclip me-1"></i>6</span>
                 <span><i class="bi bi-calendar3 me-1"></i>3 June</span>
               </div>
             </div>
 
             <!-- Task 3 -->
-            <div class="task-item-card">
+            <div class="task-bar-item">
               <div>
-                <div class="task-name">Send out reminders</div>
-                <div class="task-date">16 May, 02:00 PM</div>
+                <div class="fw-bold text-dark small">Send out reminders</div>
+                <div class="text-muted" style="font-size: 0.75rem;">16 May, 02:00 PM</div>
               </div>
-              <div class="task-dur">
-                Duration<br><strong>01 h 20 m</strong>
+              <div class="small text-muted">
+                Duration<br><strong class="text-dark">01 h 20 m</strong>
               </div>
-              <div class="task-prog-wrap">
-                <span class="task-prog-num">75%</span>
-                <div class="task-prog-bar">
-                  <div class="task-prog-fill" style="width: 75%;"></div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="fw-bold text-dark small" style="min-width: 32px;">75%</span>
+                <div class="progress flex-grow-1" style="height: 6px;">
+                  <div class="progress-bar rounded-pill" style="width: 75%; background: var(--cres-primary);"></div>
                 </div>
               </div>
-              <div class="task-meta-icons">
+              <div class="d-flex align-items-center justify-content-end gap-3 text-muted small fw-semibold">
                 <span><i class="bi bi-paperclip me-1"></i>2</span>
                 <span><i class="bi bi-chat-square-dots me-1"></i>8</span>
               </div>
@@ -376,42 +391,43 @@
 
           </div>
         </div>
+      </div>
 
-        <!-- Go Premium! Card -->
-        <div class="premium-card-banner">
-          <div class="premium-icon-box">
-            <i class="bi bi-gift-fill text-white"></i>
+      <!-- Go Premium! Card -->
+      <div class="col-lg-4">
+        <div class="premium-banner-box h-100">
+          <div class="p-3 rounded-4 mb-3" style="background: rgba(255,255,255,0.16); backdrop-filter: blur(6px);">
+            <i class="bi bi-gift-fill fs-2 text-white"></i>
           </div>
           <div>
-            <h3 class="premium-header">Go premium!</h3>
-            <p class="premium-text">
-              Gain access to a range of benefits designed to enhance your user experience.
+            <h3 class="fw-bold mb-2 text-white" style="font-family: var(--cres-font-heading);">Go premium!</h3>
+            <p class="small text-white-50 mb-4" style="line-height: 1.5;">
+              Gain access to verified seller certificates, priority buyer inquiries, and unlimited cloud collection syncing.
             </p>
           </div>
-          <button class="btn-go-pro" onclick="alert('Upgrading to Pro!')">
+          <button class="btn btn-dark w-100 rounded-pill py-2 fw-bold shadow" onclick="alert('Upgrading to Heritage Pro!')">
             Get Pro Now
           </button>
         </div>
+      </div>
 
-      </section>
+    </div>
 
-    </main>
-
-  </div>
+  </main>
 
   <!-- Interactive Modal for New Assignment -->
   <div class="modal fade" id="assignmentModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-4 border-0 shadow-lg p-3">
         <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold" style="font-family: var(--font-heading);">Add New Task / Assignment</h5>
+          <h5 class="modal-title fw-bold" style="font-family: var(--cres-font-heading);">Add New Task / Assignment</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="newAssignmentForm" onsubmit="saveNewAssignment(event)">
             <div class="mb-3">
               <label class="form-label fw-semibold text-muted small">Task Title</label>
-              <input type="text" class="form-control rounded-3" id="taskTitleInput" placeholder="e.g. Design packaging concept" required>
+              <input type="text" class="form-control rounded-3" id="taskTitleInput" placeholder="e.g. Authenticate Tanjore Bronze" required>
             </div>
             <div class="row g-2 mb-3">
               <div class="col-6">
@@ -423,25 +439,21 @@
                 <input type="number" class="form-control rounded-3" id="taskProgressInput" min="0" max="100" value="25">
               </div>
             </div>
-            <button type="submit" class="btn w-100 rounded-pill py-2 text-white fw-bold" style="background: var(--sidebar-color);">Save Assignment</button>
+            <button type="submit" class="btn cres-btn-primary w-100 rounded-pill py-2 fw-bold">Save Assignment</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/components.js"></script>
   <script>
-    function switchNav(btn) {
-      document.querySelectorAll('.nav-item-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    function handleLogout(btn) {
-      if (confirm('Are you sure you want to log out?')) {
-        window.location.href = '/auth.html';
-      }
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render the exact same unified Heritage Marketplace header & side navbar
+      renderHeader('home');
+    });
 
     function clearNotifications() {
       document.getElementById('notificationsArea').innerHTML = `
@@ -455,7 +467,7 @@
     const modalEl = document.getElementById('assignmentModal');
     let assignmentModal = null;
     document.addEventListener('DOMContentLoaded', () => {
-      assignmentModal = new bootstrap.Modal(modalEl);
+      if (modalEl) assignmentModal = new bootstrap.Modal(modalEl);
     });
 
     function openAssignmentModal() {
@@ -470,21 +482,21 @@
 
       const list = document.getElementById('tasksList');
       const item = `
-        <div class="task-item-card">
+        <div class="task-bar-item">
           <div>
-            <div class="task-name">${title}</div>
-            <div class="task-date">Today, Just now</div>
+            <div class="fw-bold text-dark small">${title}</div>
+            <div class="text-muted" style="font-size: 0.75rem;">Today, Just now</div>
           </div>
-          <div class="task-dur">
-            Duration<br><strong>${dur}</strong>
+          <div class="small text-muted">
+            Duration<br><strong class="text-dark">${dur}</strong>
           </div>
-          <div class="task-prog-wrap">
-            <span class="task-prog-num">${prog}%</span>
-            <div class="task-prog-bar">
-              <div class="task-prog-fill" style="width: ${prog}%;"></div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="fw-bold text-dark small" style="min-width: 32px;">${prog}%</span>
+            <div class="progress flex-grow-1" style="height: 6px;">
+              <div class="progress-bar rounded-pill" style="width: ${prog}%; background: var(--cres-primary);"></div>
             </div>
           </div>
-          <div class="task-meta-icons">
+          <div class="d-flex align-items-center justify-content-end gap-3 text-muted small fw-semibold">
             <span><i class="bi bi-paperclip me-1"></i>1</span>
             <span><i class="bi bi-chat-square-dots me-1"></i>0</span>
           </div>
@@ -497,7 +509,7 @@
 
     function shareTasks() {
       navigator.clipboard.writeText(window.location.href);
-      alert("Link copied!");
+      alert("Workspace link copied to clipboard!");
     }
   </script>
 </body>

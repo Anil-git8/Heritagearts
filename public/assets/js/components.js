@@ -155,11 +155,36 @@ const renderHeader = (activePage = '') => {
         <div class="d-flex align-items-center justify-content-between gap-3">
           
           <!-- Left: Brand Logo -->
-          <a href="/index.html" class="cres-brand text-decoration-none d-flex align-items-center gap-2">
-            <span class="cres-brand-dot"></span>
-            <div class="d-flex flex-column">
-              <span class="fw-extrabold tracking-wide" style="font-family: var(--cres-font-heading); font-size: 1.25rem; letter-spacing: -0.5px; color: var(--cres-secondary);">HERITAGE</span>
-              <span class="badge px-1 py-0 text-uppercase" style="font-size: 0.6rem; letter-spacing: 1.5px; background: var(--cres-primary-light); color: var(--cres-primary); font-weight: 700;">Marketplace</span>
+          <a href="/index.html" class="cres-brand" aria-label="Heritage Marketplace Home">
+            <div class="cres-brand-icon-wrap">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="cresHdrBrandBg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#6366F1"/>
+                    <stop offset="50%" stop-color="#4F46E5"/>
+                    <stop offset="100%" stop-color="#312E81"/>
+                  </linearGradient>
+                  <linearGradient id="cresHdrGold" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#FEF08A"/>
+                    <stop offset="50%" stop-color="#FACC15"/>
+                    <stop offset="100%" stop-color="#EAB308"/>
+                  </linearGradient>
+                </defs>
+                <rect width="44" height="44" rx="12" fill="url(#cresHdrBrandBg)"/>
+                <rect x="0.75" y="0.75" width="42.5" height="42.5" rx="11.25" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                <!-- Heritage Architectural Monogram Pillars -->
+                <path d="M13 12C13 11.4477 13.4477 11 14 11H16C16.5523 11 17 11.4477 17 12V32C17 32.5523 16.5523 33 16 33H14C13.4477 33 13 32.5523 13 32V12Z" fill="white"/>
+                <path d="M27 12C27 11.4477 27.4477 11 28 11H30C30.5523 11 31 11.4477 31 12V32C31 32.5523 30.5523 33 30 33H28C27.4477 33 27 32.5523 27 32V12Z" fill="white"/>
+                <path d="M17 20.5H27V23.5H17V20.5Z" fill="white"/>
+                <!-- Heritage Antique Star Motif -->
+                <path d="M22 13L24 18L29 20L24 22L22 27L20 22L15 20L20 18L22 13Z" fill="url(#cresHdrGold)"/>
+                <circle cx="15" cy="10" r="1.5" fill="url(#cresHdrGold)"/>
+                <circle cx="29" cy="10" r="1.5" fill="url(#cresHdrGold)"/>
+              </svg>
+            </div>
+            <div class="cres-brand-text">
+              <span class="cres-brand-name">HERITAGE</span>
+              <span class="cres-brand-tag"><span class="cres-brand-tag-dot"></span>MARKETPLACE</span>
             </div>
           </a>
 
@@ -269,9 +294,35 @@ const renderFooter = () => {
         <div class="row g-4">
           <!-- Col 1 -->
           <div class="col-lg-4">
-            <a href="/index.html" class="cres-brand mb-3 d-inline-block text-decoration-none">
-              <span class="cres-brand-dot"></span>
-              <span class="fw-bold" style="font-family: var(--cres-font-heading); color: var(--cres-secondary);">HERITAGE MARKETPLACE</span>
+            <a href="/index.html" class="cres-brand mb-3 d-inline-flex" aria-label="Heritage Marketplace Home">
+              <div class="cres-brand-icon-wrap">
+                <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="cresFtrBrandBg" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#6366F1"/>
+                      <stop offset="50%" stop-color="#4F46E5"/>
+                      <stop offset="100%" stop-color="#312E81"/>
+                    </linearGradient>
+                    <linearGradient id="cresFtrGold" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FEF08A"/>
+                      <stop offset="50%" stop-color="#FACC15"/>
+                      <stop offset="100%" stop-color="#EAB308"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="44" height="44" rx="12" fill="url(#cresFtrBrandBg)"/>
+                  <rect x="0.75" y="0.75" width="42.5" height="42.5" rx="11.25" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <path d="M13 12C13 11.4477 13.4477 11 14 11H16C16.5523 11 17 11.4477 17 12V32C17 32.5523 16.5523 33 16 33H14C13.4477 33 13 32.5523 13 32V12Z" fill="white"/>
+                  <path d="M27 12C27 11.4477 27.4477 11 28 11H30C30.5523 11 31 11.4477 31 12V32C31 32.5523 30.5523 33 30 33H28C27.4477 33 27 32.5523 27 32V12Z" fill="white"/>
+                  <path d="M17 20.5H27V23.5H17V20.5Z" fill="white"/>
+                  <path d="M22 13L24 18L29 20L24 22L22 27L20 22L15 20L20 18L22 13Z" fill="url(#cresFtrGold)"/>
+                  <circle cx="15" cy="10" r="1.5" fill="url(#cresFtrGold)"/>
+                  <circle cx="29" cy="10" r="1.5" fill="url(#cresFtrGold)"/>
+                </svg>
+              </div>
+              <div class="cres-brand-text">
+                <span class="cres-brand-name">HERITAGE</span>
+                <span class="cres-brand-tag"><span class="cres-brand-tag-dot"></span>MARKETPLACE</span>
+              </div>
             </a>
             <p class="text-muted small mb-4 pe-lg-4">
               A premier multi-vendor marketplace connecting passionate art collectors, spiritual seekers, and connoisseurs directly with master artisans, verified antiquarians, and traditional craftsmen.

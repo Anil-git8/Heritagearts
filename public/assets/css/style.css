@@ -18,24 +18,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: 992px) {
-  body {
-    padding-left: 92px !important;
-  }
-}
+
 
 /* --------------------------------------------------------------------------
-   ORGANIC CURVED SIDEBAR TAB (Exact Reference UI)
+   ORGANIC CURVED SIDEBAR TAB (Exact Reference UI - Smooth Theme Unified)
    -------------------------------------------------------------------------- */
 .cres-side-dock {
   display: none;
 }
 
 @media (min-width: 992px) {
-  body {
-    padding-left: 88px !important;
-  }
-
   .cres-side-dock {
     position: fixed;
     top: 50%;
@@ -43,52 +35,27 @@ body {
     transform: translateY(-50%);
     width: 68px;
     height: auto;
-    background: #5B42F3;
-    border-top-right-radius: 36px;
-    border-bottom-right-radius: 36px;
+    background: linear-gradient(180deg, #6C55F9 0%, #5B42F3 50%, #4D33EB 100%);
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
     z-index: 1060;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 24px 0 24px 0;
-    gap: 22px;
-    box-shadow: 6px 12px 30px rgba(91, 66, 243, 0.3);
-    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, box-shadow 0.35s ease;
+    gap: 18px;
+    box-shadow: 6px 14px 34px rgba(91, 66, 243, 0.28);
+    border: none !important;
+    outline: none !important;
+    transition: width 0.42s cubic-bezier(0.34, 1.3, 0.64, 1), padding 0.35s ease, box-shadow 0.4s ease;
+    will-change: width, padding;
   }
 
   .cres-side-dock.expanded {
-    width: 220px;
+    width: 230px;
     padding: 24px 14px;
     align-items: stretch;
-    box-shadow: 12px 20px 45px rgba(91, 66, 243, 0.45);
-  }
-
-  /* Top Inverted Concave Scoop */
-  .cres-side-dock::before {
-    content: '';
-    position: absolute;
-    top: -26px;
-    left: 0;
-    width: 26px;
-    height: 26px;
-    background: transparent;
-    border-bottom-left-radius: 26px;
-    box-shadow: -8px 8px 0 8px #5B42F3;
-    pointer-events: none;
-  }
-
-  /* Bottom Inverted Concave Scoop */
-  .cres-side-dock::after {
-    content: '';
-    position: absolute;
-    bottom: -26px;
-    left: 0;
-    width: 26px;
-    height: 26px;
-    background: transparent;
-    border-top-left-radius: 26px;
-    box-shadow: -8px -8px 0 8px #5B42F3;
-    pointer-events: none;
+    box-shadow: 14px 22px 48px rgba(91, 66, 243, 0.38);
   }
 
   /* Dock Item Label for Expanded Mode */
@@ -308,35 +275,108 @@ a:hover {
   border-bottom: 1px solid var(--cres-border-subtle);
   position: sticky;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1020;
   padding: 14px 0;
   box-shadow: var(--cres-shadow-sm);
   transition: var(--cres-transition);
 }
 
+/* ==========================================================================
+   HERITAGE BRAND LOGO & EMBLEM SYSTEM
+   ========================================================================== */
 .cres-brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
+  gap: 11px;
+  text-decoration: none !important;
   color: var(--cres-secondary);
   font-family: var(--cres-font-heading);
-  font-weight: 800;
-  font-size: clamp(1.05rem, 3.5vw, 1.4rem);
-  letter-spacing: -0.03em;
   white-space: nowrap !important;
   flex-shrink: 0;
+  transition: var(--cres-transition);
 }
 
-.cres-brand span {
-  white-space: nowrap !important;
+.cres-brand:hover {
+  text-decoration: none !important;
+  color: var(--cres-secondary);
+}
+
+.cres-brand:hover .cres-brand-icon-wrap {
+  transform: translateY(-1px) scale(1.05) rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(91, 66, 243, 0.35);
+}
+
+.cres-brand-icon-wrap {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(91, 66, 243, 0.22);
+}
+
+.cres-brand-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cres-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.cres-brand-name {
+  font-family: var(--cres-font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #0F172A;
+  line-height: 1.1;
+  display: block;
+}
+
+.cres-brand-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cres-primary);
+  background: rgba(91, 66, 243, 0.08);
+  border: 1px solid rgba(91, 66, 243, 0.18);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-top: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5px;
+  width: fit-content;
+  line-height: 1.2;
+}
+
+.cres-brand-tag-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #F59E0B;
+  display: inline-block;
+  box-shadow: 0 0 4px rgba(245, 158, 11, 0.6);
 }
 
 .cres-brand-dot {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--cres-primary);
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
   display: inline-block;
   flex-shrink: 0;
 }
@@ -1013,14 +1053,26 @@ a:hover {
 /* Extra Small Phones (<= 575.98px down to 320px) */
 @media (max-width: 575.98px) {
   .cres-brand {
-    font-size: 1.05rem;
-    gap: 6px;
+    gap: 8px;
     white-space: nowrap;
     flex-shrink: 0;
   }
+  .cres-brand-icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+  .cres-brand-name {
+    font-size: 1.08rem;
+  }
+  .cres-brand-tag {
+    font-size: 0.52rem;
+    letter-spacing: 1.2px;
+    padding: 0 4px;
+  }
   .cres-brand-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
   }
   .cres-hero-container {
     padding: 28px 16px;
